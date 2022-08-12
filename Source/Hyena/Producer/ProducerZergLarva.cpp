@@ -1,36 +1,40 @@
 #include "ProducerZergLarva.h"
 #include "Engine.h"
 
-bool Hyena::CProducerZergLarva::CanProduce(BWAPI::UnitType UnitType)
+using namespace Hyena;
+
+bool CProducerZergLarva::CanProduce(BWAPI::UnitType UnitType)
 {
 	//todo
 	return (UnitType == BWAPI::UnitTypes::Zerg_Drone) || (UnitType == BWAPI::UnitTypes::Zerg_Overlord);
 }
 
-void Hyena::CProducerZergLarva::Produce()
+void CProducerZergLarva::Update()
 {
-	if (PendingOrders.size() > 0)
+	if (PendingOrders.size())
 	{
-		//todo 使用base的
-		for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
+		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+		if (UnitType.mineralPrice() <= ReservedMinerals && UnitType.gasPrice() <= ReservedGas)
 		{
-			if (Unit->getType() == BWAPI::UnitTypes::Zerg_Larva)
+			//todo 使用base的
+			for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
 			{
-				if (Unit->morph(PendingOrders[0]->UnitType))
+				if (Unit->getType() == BWAPI::UnitTypes::Zerg_Larva)
 				{
-					PendingOrders[0]->bInProgress = true;
-					ProducingOrders.push_back(PendingOrders[0]);
-					PendingOrders.erase(PendingOrders.begin());
-					break;
+					if (Unit->morph(PendingOrders[0]->UnitType))
+					{
+						ConsumeResources(UnitType.mineralPrice(), UnitType.gasPrice());
+						PendingOrders[0]->bInProgress = true;
+						ProducingOrders.push_back(PendingOrders[0]);
+						PendingOrders.erase(PendingOrders.begin());
+						break;
+					}
 				}
 			}
 		}
 	}
 
-}
 
-void Hyena::CProducerZergLarva::Update()
-{
 	if (ProducingOrders.size())
 	{
 		std::vector<BWAPI::Unit> MyUnits;
@@ -63,7 +67,33 @@ void Hyena::CProducerZergLarva::Update()
 	}
 }
 
-bool Hyena::CProducerZergLarva::IsMyUnit(BWAPI::Unit Unit)
+float CProducerZergLarva::GetPriority()
+{
+	if (PendingOrders.size())
+	{
+		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+		if (UnitType.gasPrice() <= ReservedGas && UnitType.mineralPrice() <= ReservedMinerals)
+		{
+			return 0;
+		}
+		return 0.5f;
+	}
+	return 0;
+}
+
+void CProducerZergLarva::GetResourceNeeded(int& OutMinerals, int& OutGas)
+{
+	OutMinerals = 0;
+	OutGas = 0;
+	if (PendingOrders.size())
+	{
+		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+		OutMinerals = UnitType.mineralPrice();
+		OutGas = UnitType.gasPrice();
+	}
+}
+
+bool CProducerZergLarva::IsMyUnit(BWAPI::Unit Unit)
 {
 	BWAPI::UnitType UnitType = Unit->getType();
 	//todo

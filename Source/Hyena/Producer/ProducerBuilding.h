@@ -8,7 +8,8 @@ namespace Hyena
 	public:
 		bool CanProduce(BWAPI::UnitType UnitType) override;
 		void Update() override;
-		void Produce() override;
+		float GetPriority() override;
+		void GetResourceNeeded(int& OutMinerals, int& OutGas) override;
 
 	private:
 		bool IsMyUnit(BWAPI::Unit Unit);

@@ -10,6 +10,22 @@ bool CProducerBuilding::CanProduce(BWAPI::UnitType UnitType)
 
 void CProducerBuilding::Update()
 {
+	if (PendingOrders.size() > 0)
+	{
+		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+		if (UnitType.mineralPrice() <= ReservedMinerals && UnitType.gasPrice() <= ReservedGas)
+		{
+			//todo not allow queue for this moment
+			if (!Units[0]->isTraining() && Units[0]->train(PendingOrders[0]->UnitType))
+			{
+				ConsumeResources(UnitType.mineralPrice(), UnitType.gasPrice());
+				PendingOrders[0]->bInProgress = true;
+				ProducingOrders.push_back(PendingOrders[0]);
+				PendingOrders.erase(PendingOrders.begin());
+			}
+		}
+	}
+
 	if (ProducingOrders.size())
 	{
 		std::vector<BWAPI::Unit> MyUnits;
@@ -43,15 +59,6 @@ void CProducerBuilding::Update()
 
 }
 
-void CProducerBuilding::Produce()
-{
-	if (PendingOrders.size() > 0 && Units[0]->train(PendingOrders[0]->UnitType))
-	{
-		ProducingOrders.push_back(PendingOrders[0]);
-		PendingOrders.erase(PendingOrders.begin());
-	}
-}
-
 bool CProducerBuilding::IsMyUnit(BWAPI::Unit Unit)
 {
 	//todo 
@@ -60,4 +67,30 @@ bool CProducerBuilding::IsMyUnit(BWAPI::Unit Unit)
 		return true;
 	}
 	return false;
+}
+
+float CProducerBuilding::GetPriority()
+{
+	if (PendingOrders.size())
+	{
+		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+		if (UnitType.gasPrice() <= ReservedGas && UnitType.mineralPrice() <= ReservedMinerals)
+		{
+			return 0;
+		}
+		return 0.5f;
+	}
+	return 0;
+}
+
+void CProducerBuilding::GetResourceNeeded(int& OutMinerals, int& OutGas)
+{
+	OutMinerals = 0;
+	OutGas = 0;
+	if (PendingOrders.size())
+	{
+		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+		OutMinerals = UnitType.mineralPrice();
+		OutGas = UnitType.gasPrice();
+	}
 }

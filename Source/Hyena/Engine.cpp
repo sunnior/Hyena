@@ -5,6 +5,7 @@
 #include "Producer/Producer.h"
 #include "Producer/ProducerZergLarva.h"
 #include "Producer/ProducerBuilding.h"
+#include "Producer/ProducerWorker.h"
 #include "Squad/Squad.h"
 
 using namespace Hyena;
@@ -53,29 +54,33 @@ void CEngine::Initialize()
 	Base->Initialize(this, Workers);
 	Bases.push_back(Base);
 
-	std::shared_ptr<CProducer> Producer;
-	//Create Producer For Worker
+	//Create Producer
 	if (BWAPI::Broodwar->self()->getRace() != BWAPI::Races::Zerg)
 	{
 		BWAPI::UnitType DepotType = BWAPI::Broodwar->self()->getRace().getResourceDepot();
 
-		Producer = std::make_shared<CProducerBuilding>();
-		Producer->Initialize(this);
+		std::shared_ptr<CProducer> ProducerDepot = std::make_shared<CProducerBuilding>();
+		ProducerDepot->Initialize(this);
 		for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
 		{
 			if (Unit->getType() == DepotType)
 			{
-				Producer->Units.push_back(Unit);
+				ProducerDepot->Units.push_back(Unit);
 			}
 		}
+		Producers.push_back(ProducerDepot);
+
+		std::shared_ptr<CProducerWorker> ProducerWorker = std::make_shared<CProducerWorker>();
+		ProducerWorker->Initialize(this);
+		Producers.push_back(ProducerWorker);
 	}
 	else
 	{
-		Producer = std::make_shared<CProducerZergLarva>();
+		std::shared_ptr<CProducer> Producer = std::make_shared<CProducerZergLarva>();
 		Producer->Initialize(this);
+		Producers.push_back(Producer);
 	}
 
-	Producers.push_back(Producer);
 }
 
 void CEngine::Update()
@@ -101,15 +106,39 @@ void CEngine::Update()
 	}
 
 	StrategyManager->Update();
+
 	for (auto& Producer : Producers)
 	{
 		Producer->Update();
 	}
 
-	//todo
+
+	float HighestPriorty = 0;
+	std::shared_ptr<CProducer> HighestPriortyProducer;
+
+	int ReservedMinerals = 0;
+	int ReservedGas = 0;
 	for (auto& Producer : Producers)
 	{
-		Producer->Produce();
+		ReservedMinerals += Producer->ReservedMinerals;
+		ReservedGas += Producer->ReservedGas;
+		if (Producer->GetPriority() > HighestPriorty)
+		{
+			HighestPriortyProducer = Producer;
+		}
+	}
+
+	if (HighestPriortyProducer.get())
+	{
+		int NeedGas, NeedMinerals;
+		HighestPriortyProducer->GetResourceNeeded(NeedMinerals, NeedGas);
+		if ((NeedMinerals <= (BWAPI::Broodwar->self()->minerals() - ReservedMinerals)) &&
+			(NeedGas <= (BWAPI::Broodwar->self()->gas() - ReservedGas)))
+		{
+			HighestPriortyProducer->ReserveResources(NeedMinerals, NeedGas);
+			ReservedMinerals += NeedMinerals;
+			ReservedGas += NeedGas;
+		}
 	}
 
 	for (auto& Squad : Squads)

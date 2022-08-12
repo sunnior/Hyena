@@ -19,10 +19,17 @@ namespace Hyena
 		virtual bool CanProduce(BWAPI::UnitType UnitType) { return false; }
 		void AddOrder(const std::shared_ptr<SBuildOrder>& Order);
 		virtual void Update() {};
-		virtual void Produce() {};
+		virtual float GetPriority() { return 0; }
+		virtual void GetResourceNeeded(int& OutMinerals, int& OutGas) {};
+		void ReserveResources(int Minerals, int Gas) { ReservedMinerals += Minerals; ReservedGas += Gas; }
 
 		std::vector<BWAPI::Unit> Units;
+
+		int ReservedMinerals;
+		int ReservedGas;
 	protected:
+		void ConsumeResources(int Minerals, int Gas);
+			
 		std::vector<std::shared_ptr<SBuildOrder>> PendingOrders;
 		std::vector<std::shared_ptr<SBuildOrder>> ProducingOrders;
 		class CEngine* Engine;
