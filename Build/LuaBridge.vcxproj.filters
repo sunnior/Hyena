@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Detail">
+      <UniqueIdentifier>{bf5fae5f-f91f-4abe-9570-82a0561996fe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\List.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\LuaBridge.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\RefCountedObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Set.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\UnorderedMap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Vector.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Array.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Invoke.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Iterator.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\LuaException.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\LuaHelpers.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\LuaRef.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Namespace.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Security.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Stack.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\TypeTraits.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Userdata.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\CFunctions.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\ClassInfo.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Config.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Dump.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Errors.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\FuncTraits.h">
+      <Filter>Source Files\Detail</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

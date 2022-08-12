@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{073c04b7-71e4-4e56-ade6-d35014905c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Strategy">
+      <UniqueIdentifier>{cda41ee1-427f-42a8-b6b1-be5deabcb694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Squad">
+      <UniqueIdentifier>{376bbee4-dcd5-43d2-bbbd-3c2a19eced16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Producer">
+      <UniqueIdentifier>{5956eca4-7212-4117-8dc2-d438f4136ab8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Scripts\StrategyManagerInitialize.lua">
+      <Filter>Scripts</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\Hyena\Engine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\HyenaAIModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\StrategyManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Base.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Common.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Strategy\StrategyMaxMining.h">
+      <Filter>Source Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Strategy\StrategyScout.h">
+      <Filter>Source Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Strategy\StrategySupply.h">
+      <Filter>Source Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Strategy\Strategy.h">
+      <Filter>Source Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Squad\SquadMining.h">
+      <Filter>Source Files\Squad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Squad\Squad.h">
+      <Filter>Source Files\Squad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Producer\ProducerWorker.h">
+      <Filter>Source Files\Producer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Producer\ProducerZergLarva.h">
+      <Filter>Source Files\Producer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Producer\Producer.h">
+      <Filter>Source Files\Producer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Producer\ProducerBuilding.h">
+      <Filter>Source Files\Producer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Tools.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\Hyena\HyenaAIModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\StrategyManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Strategy\StrategyScout.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Strategy\StrategySupply.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Strategy\Strategy.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Strategy\StrategyMaxMining.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Squad\SquadMining.cpp">
+      <Filter>Source Files\Squad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Squad\Squad.cpp">
+      <Filter>Source Files\Squad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Producer\ProducerWorker.cpp">
+      <Filter>Source Files\Producer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Producer\ProducerZergLarva.cpp">
+      <Filter>Source Files\Producer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Producer\Producer.cpp">
+      <Filter>Source Files\Producer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Producer\ProducerBuilding.cpp">
+      <Filter>Source Files\Producer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Tools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
