@@ -36,29 +36,29 @@ void Hyena::CProducerZergLarva::Update()
 		std::vector<BWAPI::Unit> MyUnits;
 		for (auto& Unit : Engine->UnitsJustProduced)
 		{
-			if (!IsMyUnit(Unit))
+			if (IsMyUnit(Unit))
 			{
-				continue;
+				MyUnits.push_back(Unit);
 			}
-			MyUnits.push_back(Unit);
 		}
 
 		if (MyUnits.size())
 		{
-			std::vector<BWAPI::Unit> NotMyUnits;
-			for (auto& Unit : Engine->UnitsJustProduced)
-			{
-				if (IsMyUnit(Unit))
-				{
-					continue;
-				}
-				NotMyUnits.push_back(Unit);
-			}
-			Engine->UnitsJustProduced = NotMyUnits;
 
-			//todo Order check
-			ProducingOrders[0]->OutUnit = MyUnits[0];
-			ProducingOrders.erase(ProducingOrders.begin());
+			for (auto& Unit : MyUnits)
+			{
+				for (auto It = ProducingOrders.begin(); It != ProducingOrders.end(); ++It)
+				{
+
+					if (Unit->getType() == (*It)->UnitType)
+					{
+						(*It)->OutUnit = Unit;
+						ProducingOrders.erase(It);
+						break;
+					}
+
+				}
+			}
 		}
 	}
 }
