@@ -41,8 +41,9 @@ void CSquadBuilder::OnUpdate()
 		}
 		else
 		{
-			if (!Order->OutUnit->isBeingConstructed())
+			if (Unit->isIdle())
 			{
+				bComplete = true;
 			}
 		}
 	}

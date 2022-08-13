@@ -46,9 +46,7 @@ void CProducerWorker::Update()
 
 	for (auto It = Squads.begin(); It != Squads.end(); ++It)
 	{
-		//todo 如果是被损坏呢？
-		//todo 其他种族
-		if ((*It)->Order->OutUnit && !(*It)->Order->OutUnit->isBeingConstructed())
+		if ((*It)->bComplete)
 		{
 			Base->SquadMining->AddUnit((*It)->Unit);
 			Engine->DeleteSquad(*It);

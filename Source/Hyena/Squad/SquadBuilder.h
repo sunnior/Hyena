@@ -18,5 +18,6 @@ namespace Hyena
 
 		//todo
 		bool bConsumedResource = false;
+		bool bComplete = false;
 	};
 }
