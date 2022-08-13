@@ -1,5 +1,5 @@
 #include "HyenaAIModule.h"
-#include "Engine/Engine.h"
+#include "Engine.h"
 
 void HyenaAIModule::onStart()
 {

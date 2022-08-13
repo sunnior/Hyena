@@ -86,6 +86,11 @@ void CEngine::Update()
 		{
 			case BWAPI::EventType::UnitCreate: 
 			{ 
+				BWAPI::Unit Unit = e.getUnit();
+				if (Unit->getType().isBuilding() && Unit->isBeingConstructed())
+				{
+					UnitsBeingContructed.push_back(Unit);
+				}
 				break; 
 			}
 			case BWAPI::EventType::UnitComplete:
@@ -143,6 +148,8 @@ void CEngine::Update()
 	}
 
 	UnitsJustProduced.clear();
+	UnitsBeingContructed.clear();
+	//todfo UnitsBeingContructed
 }
 
 void CEngine::Finialize()

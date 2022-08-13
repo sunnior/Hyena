@@ -8,7 +8,8 @@ void CStrategySupply::Update()
 {
 	if (Order.get())
 	{
-		if (Order->OutUnit)
+		//todo 整理状态表示
+		if (Order->OutUnit && !Order->OutUnit->isBeingConstructed())
 		{
 			Order.reset();
 		}
@@ -20,17 +21,33 @@ void CStrategySupply::Update()
 		int UnusedSupply = BWAPI::Broodwar->self()->supplyTotal() - BWAPI::Broodwar->self()->supplyUsed();
 		if (UnusedSupply <= 4)
 		{
-			Order = std::make_shared<SBuildOrder>();
-			Order->UnitType = Engine->Race.getSupplyProvider();
+			BWAPI::UnitType SupplyType = Engine->Race.getSupplyProvider();
 
 			for (auto& Producer : Engine->Producers)
 			{
-				if (Producer->CanProduce(Order->UnitType))
+				if (Producer->CanProduce(SupplyType))
 				{
+					Order = std::make_shared<SBuildOrder>();
+					Order->UnitType = SupplyType;
+					Order->Pos = GetBestPosition(SupplyType);
 					Producer->AddOrder(Order);
 					break;
 				}
 			}
 		}
 	}
+}
+
+BWAPI::TilePosition CStrategySupply::GetBestPosition(BWAPI::UnitType UnitType)
+{
+	//todo 有的时候找到位置有人过，会导致建筑失败
+	
+	// Get a location that we want to build the building next to
+	BWAPI::TilePosition desiredPos = BWAPI::Broodwar->self()->getStartLocation();
+
+	// Ask BWAPI for a building location near the desired position for the type
+	int maxBuildRange = 64;
+	bool buildingOnCreep = UnitType.requiresCreep();
+	BWAPI::TilePosition buildPos = BWAPI::Broodwar->getBuildLocation(UnitType, desiredPos, maxBuildRange, buildingOnCreep);
+	return buildPos;
 }

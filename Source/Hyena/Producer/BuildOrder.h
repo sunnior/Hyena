@@ -8,7 +8,7 @@ namespace Hyena
 		BWAPI::UnitType UnitType;
 		BWAPI::Unit OutUnit = nullptr;
 		bool bInProgress = false;
-		BWAPI::Position Pos;
+		BWAPI::TilePosition Pos;
 	};
 
 }

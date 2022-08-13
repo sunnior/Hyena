@@ -15,5 +15,8 @@ namespace Hyena
 
 		BWAPI::Unit Unit;
 		std::shared_ptr<struct SBuildOrder> Order;
+
+		//todo
+		bool bConsumedResource = false;
 	};
 }

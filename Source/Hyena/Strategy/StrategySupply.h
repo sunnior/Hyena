@@ -7,6 +7,7 @@ namespace Hyena
 	{
 	public:
 		void Update() override;
+		BWAPI::TilePosition GetBestPosition(BWAPI::UnitType UnitType);
 
 		std::shared_ptr<struct SBuildOrder> Order;
 	};

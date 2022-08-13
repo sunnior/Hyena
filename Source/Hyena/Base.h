@@ -9,7 +9,7 @@ namespace Hyena
 	{
 	public:
 		void Initialize(class CEngine* InEngine,  std::vector<BWAPI::Unit>& Workers);
-		int GetDesireWorkers() { return 18; };
+		int GetDesireWorkers() { return 24; };
 
 		std::shared_ptr<class CSquadMining> SquadMining;
 	};

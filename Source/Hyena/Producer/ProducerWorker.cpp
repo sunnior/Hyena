@@ -3,6 +3,7 @@
 #include "Squad/SquadMining.h"
 #include "Squad/SquadBuilder.h"
 #include "Engine.h"
+#include <algorithm>
 
 using namespace Hyena;
 
@@ -30,6 +31,31 @@ void CProducerWorker::Update()
 				PendingOrders.erase(PendingOrders.begin());
 			}
 		}
+	}
+
+	for (auto& Squad : Squads)
+	{
+		if (Squad->Order->OutUnit)
+		{
+			if (!Squad->bConsumedResource)
+			{
+				ConsumeResources(Squad->Order->UnitType.mineralPrice(), Squad->Order->UnitType.gasPrice());
+			}
+		}
+	}
+
+	for (auto It = Squads.begin(); It != Squads.end(); ++It)
+	{
+		//todo 如果是被损坏呢？
+		//todo 其他种族
+		if ((*It)->Order->OutUnit && !(*It)->Order->OutUnit->isBeingConstructed())
+		{
+			Base->SquadMining->AddUnit((*It)->Unit);
+			Engine->DeleteSquad(*It);
+			Squads.erase(It);
+			break;
+		}
+
 	}
 }
 

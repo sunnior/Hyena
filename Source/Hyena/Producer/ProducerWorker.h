@@ -10,6 +10,8 @@ namespace Hyena
 		void Update() override;
 		float GetPriority() override;
 		void GetResourceNeeded(int& OutMinerals, int& OutGas) override;
+		void SquadBeginBuild(class CSquadBuilder* Squad);
+		void SquadEndBuild(class CSquadBuilder* Squad);
 
 		std::shared_ptr<class CBase> Base;
 		std::vector<std::shared_ptr<class CSquadBuilder>> Squads;
