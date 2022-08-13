@@ -71,16 +71,17 @@ bool CProducerBuilding::IsMyUnit(BWAPI::Unit Unit)
 
 float CProducerBuilding::GetPriority()
 {
-	if (PendingOrders.size())
+	if (!PendingOrders.size())
 	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		if (UnitType.gasPrice() <= ReservedGas && UnitType.mineralPrice() <= ReservedMinerals)
-		{
-			return 0;
-		}
-		return 0.5f;
+		return 0;
 	}
-	return 0;
+
+	BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
+	if (UnitType.gasPrice() <= ReservedGas && UnitType.mineralPrice() <= ReservedMinerals)
+	{
+		return 0;
+	}
+	return 0.5f;
 }
 
 void CProducerBuilding::GetResourceNeeded(int& OutMinerals, int& OutGas)

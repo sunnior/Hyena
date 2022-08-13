@@ -2,16 +2,10 @@
 #include <memory>
 #include <vector>
 #include <BWAPI.h>
+#include "BuildOrder.h"
 
 namespace Hyena
 {
-	struct SBuildOrder
-	{
-		BWAPI::UnitType UnitType;
-		BWAPI::Unit OutUnit = nullptr;
-		bool bInProgress = false;
-	};
-
 	class CProducer
 	{
 	public:

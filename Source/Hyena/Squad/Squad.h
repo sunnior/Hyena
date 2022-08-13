@@ -6,11 +6,14 @@ namespace Hyena
 	class CSquad
 	{
 	public:
-		virtual void Initialize() {};
+		virtual void Initialize(class CEngine*);
 
-		virtual void Update() {};
+		void Update();
+
+		virtual void OnUpdate() {};
+
+		class CEngine* Engine;
 	};
 
-	using CSquadPtr = std::shared_ptr<CSquad>;
 }
 

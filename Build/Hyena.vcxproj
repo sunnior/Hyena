@@ -26,11 +26,13 @@
     <ClInclude Include="..\Source\Hyena\Common.h" />
     <ClInclude Include="..\Source\Hyena\Engine.h" />
     <ClInclude Include="..\Source\Hyena\HyenaAIModule.h" />
+    <ClInclude Include="..\Source\Hyena\Producer\BuildOrder.h" />
     <ClInclude Include="..\Source\Hyena\Producer\Producer.h" />
     <ClInclude Include="..\Source\Hyena\Producer\ProducerBuilding.h" />
     <ClInclude Include="..\Source\Hyena\Producer\ProducerWorker.h" />
     <ClInclude Include="..\Source\Hyena\Producer\ProducerZergLarva.h" />
     <ClInclude Include="..\Source\Hyena\Squad\Squad.h" />
+    <ClInclude Include="..\Source\Hyena\Squad\SquadBuilder.h" />
     <ClInclude Include="..\Source\Hyena\Squad\SquadMining.h" />
     <ClInclude Include="..\Source\Hyena\StrategyManager.h" />
     <ClInclude Include="..\Source\Hyena\Strategy\Strategy.h" />
@@ -49,6 +51,7 @@
     <ClCompile Include="..\Source\Hyena\Producer\ProducerWorker.cpp" />
     <ClCompile Include="..\Source\Hyena\Producer\ProducerZergLarva.cpp" />
     <ClCompile Include="..\Source\Hyena\Squad\Squad.cpp" />
+    <ClCompile Include="..\Source\Hyena\Squad\SquadBuilder.cpp" />
     <ClCompile Include="..\Source\Hyena\Squad\SquadMining.cpp" />
     <ClCompile Include="..\Source\Hyena\StrategyManager.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\Strategy.cpp" />

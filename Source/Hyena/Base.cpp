@@ -6,9 +6,7 @@ using namespace Hyena;
 
 void CBase::Initialize(class CEngine* InEngine, std::vector<BWAPI::Unit>& Workers)
 {
-	SquadMining = std::make_shared<CSquadMining>();
-
-	InEngine->Squads.push_back(SquadMining);
+	SquadMining = InEngine->CreateSquad<CSquadMining>();
 
 	for (auto& Worker : Workers)
 	{

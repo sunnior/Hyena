@@ -8,7 +8,7 @@ void CSquadMining::AddUnit(BWAPI::Unit Unit)
 	Units.push_back(Unit);
 }
 
-void CSquadMining::Update()
+void CSquadMining::OnUpdate()
 {
 	for (auto& Unit : Units)
 	{
@@ -22,4 +22,17 @@ void CSquadMining::Update()
 		// If a valid mineral was found, right click it with the unit in order to start harvesting
 		if (closestMineral) { Unit->rightClick(closestMineral); }
 	}
+}
+
+BWAPI::Unit CSquadMining::RemoveCloseUnit(int x, int y)
+{
+	//todo 
+	if (!Units.size())
+	{
+		return nullptr;
+	}
+
+	BWAPI::Unit Unit = Units[0];
+	Units.erase(Units.begin());
+	return Unit;
 }

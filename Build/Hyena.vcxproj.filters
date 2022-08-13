@@ -80,6 +80,12 @@
     <ClInclude Include="..\Source\Hyena\Tools.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Squad\SquadBuilder.h">
+      <Filter>Source Files\Squad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Producer\BuildOrder.h">
+      <Filter>Source Files\Producer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Hyena\HyenaAIModule.cpp">
@@ -129,6 +135,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Hyena\Tools.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Squad\SquadBuilder.cpp">
+      <Filter>Source Files\Squad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,14 +5,15 @@
 
 namespace Hyena
 {
-	class CSquadMining : public CSquad
+	class CSquadBuilder : public CSquad
 	{
 	public:
 		void AddUnit(BWAPI::Unit);
-		BWAPI::Unit RemoveCloseUnit(int x, int y);
+		void AddOrder(const std::shared_ptr<struct SBuildOrder>& Order);
 
 		void OnUpdate() override;
 
-		std::vector<BWAPI::Unit> Units;
+		BWAPI::Unit Unit;
+		std::shared_ptr<struct SBuildOrder> Order;
 	};
 }

@@ -59,8 +59,7 @@ void CEngine::Initialize()
 	{
 		BWAPI::UnitType DepotType = BWAPI::Broodwar->self()->getRace().getResourceDepot();
 
-		std::shared_ptr<CProducer> ProducerDepot = std::make_shared<CProducerBuilding>();
-		ProducerDepot->Initialize(this);
+		std::shared_ptr<CProducer> ProducerDepot = CreateProducer<CProducerBuilding>();
 		for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
 		{
 			if (Unit->getType() == DepotType)
@@ -68,19 +67,15 @@ void CEngine::Initialize()
 				ProducerDepot->Units.push_back(Unit);
 			}
 		}
-		Producers.push_back(ProducerDepot);
 
-		std::shared_ptr<CProducerWorker> ProducerWorker = std::make_shared<CProducerWorker>();
-		ProducerWorker->Initialize(this);
-		Producers.push_back(ProducerWorker);
 	}
 	else
 	{
-		std::shared_ptr<CProducer> Producer = std::make_shared<CProducerZergLarva>();
-		Producer->Initialize(this);
-		Producers.push_back(Producer);
+		std::shared_ptr<CProducer> Producer = CreateProducer<CProducerZergLarva>();
 	}
 
+	std::shared_ptr<CProducerWorker> ProducerWorker = CreateProducer<CProducerWorker>();
+	ProducerWorker->Base = Base;
 }
 
 void CEngine::Update()
@@ -132,6 +127,7 @@ void CEngine::Update()
 	{
 		int NeedGas, NeedMinerals;
 		HighestPriortyProducer->GetResourceNeeded(NeedMinerals, NeedGas);
+		//todo 给一个预估时间，worker可以提前走
 		if ((NeedMinerals <= (BWAPI::Broodwar->self()->minerals() - ReservedMinerals)) &&
 			(NeedGas <= (BWAPI::Broodwar->self()->gas() - ReservedGas)))
 		{
