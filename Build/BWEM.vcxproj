@@ -18,11 +18,53 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\ThirdParty\BWEM\EasyBMP_1.06\EasyBMP.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\area.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\base.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\bwapiExt.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\bwem.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\cp.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\examples.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\exampleWall.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\graph.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\gridMap.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\map.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\mapDrawer.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\mapImpl.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\mapPrinter.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\neutral.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\tiles.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\utils.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\winutils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ThirdParty\BWEM\EasyBMP_1.06\EasyBMP.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\EasyBMP_1.06\EasyBMP_BMP.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\area.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\base.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\bwapiExt.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\bwem.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\cp.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\defs.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\examples.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\exampleWall.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\graph.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\gridMap.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\map.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\mapDrawer.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\mapImpl.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\mapPrinter.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\neutral.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\tiles.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\utils.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\winutils.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{025deccc-09fb-419d-862b-cb30b50b36f9}</ProjectGuid>
-    <RootNamespace>LuaBridge</RootNamespace>
+    <ProjectGuid>{daf74b97-c203-4ba9-837d-a09c4549ccee}</ProjectGuid>
+    <RootNamespace>BWEM</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -90,8 +132,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(BWTA_DIR)/include;$(BWAPI_DIR)/include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -109,6 +153,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(BWTA_DIR)/include;$(BWAPI_DIR)/include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -152,34 +198,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Array.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\CFunctions.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\ClassInfo.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Config.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Dump.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Errors.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\FuncTraits.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Invoke.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Iterator.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\LuaException.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\LuaHelpers.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\LuaRef.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Namespace.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Security.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Stack.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\TypeTraits.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\detail\Userdata.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\List.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\LuaBridge.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Map.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\RefCountedObject.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Set.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\UnorderedMap.h" />
-    <ClInclude Include="..\ThirdParty\LuaBridge3\Source\LuaBridge\Vector.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="pch.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

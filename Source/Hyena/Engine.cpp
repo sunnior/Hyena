@@ -7,6 +7,7 @@
 #include "Producer/ProducerBuilding.h"
 #include "Producer/ProducerWorker.h"
 #include "Squad/Squad.h"
+#include "bwem.h"
 
 using namespace Hyena;
 
@@ -19,6 +20,13 @@ CStrategyManager* GetGlobalStrategyManger()
 
 void CEngine::Initialize()
 {
+	BWEM::Map::Instance().Initialize();
+	BWEM::Map::Instance().EnableAutomaticPathAnalysis();
+
+	//BWEM::utils::MapPrinter::Initialize(&BWEM::Map::Instance());
+	//BWEM::utils::printMap(BWEM::Map::Instance());      // will print the map into the file <StarCraftFolder>bwapi-data/map.bmp
+	//BWEM::utils::pathExample(BWEM::Map::Instance());   // add to the printed map a path between two starting locations
+
 	BWAPI::Broodwar->setLocalSpeed(10);
 	BWAPI::Broodwar->enableFlag(BWAPI::Flag::UserInput);
 	Race = BWAPI::Broodwar->self()->getRace();
