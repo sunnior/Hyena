@@ -8,7 +8,7 @@ namespace Hyena
 	class CStrategyMaxMining : public CStrategy
 	{
 	public:
-		void Initialize(class CEngine* Engine) override;
+		void OnInitialize() override;
 
 		void Update() override;
 

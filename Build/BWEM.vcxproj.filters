@@ -66,9 +66,6 @@
     <ClCompile Include="..\ThirdParty\BWEM\src\winutils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdParty\BWEM\src\mapPrinter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\ThirdParty\BWEM\EasyBMP_1.06\EasyBMP.cpp">
       <Filter>Source Files\EasyBMP</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ThirdParty\BWEM\src\winutils.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\BWEM\src\mapPrinter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ThirdParty\BWEM\EasyBMP_1.06\EasyBMP.h">

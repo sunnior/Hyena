@@ -7,9 +7,8 @@
 
 using namespace Hyena;
 
-void CStrategyMaxMining::Initialize(class CEngine* Engine)
+void CStrategyMaxMining::OnInitialize()
 {
-	CStrategy::Initialize(Engine);
 /*
 
 	const BWAPI::UnitType DepotType = BWAPI::Broodwar->self()->getRace().getResourceDepot();

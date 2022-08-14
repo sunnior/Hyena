@@ -1,5 +1,7 @@
 #include "StrategyManager.h"
 #include "Engine.h"
+#include "Base.h"
+#include "Squad/SquadMining.h"
 
 //todo use script
 #include "Strategy/StrategyMaxMining.h"
@@ -36,6 +38,10 @@ void CStrategyManager::CreateStrategy(const std::string& Name)
 	{
 		Strategy = new CStrategySupply;
 	}
+	else if (Name == "Scout")
+	{
+		Strategy = new CStrategyScout;
+	}
 
 	if (Strategy)
 	{
@@ -47,4 +53,9 @@ void CStrategyManager::CreateStrategy(const std::string& Name)
 void CStrategyManager::Finalize()
 {
 
+}
+
+int CStrategyManager::GetWorkersCount()
+{
+	return Engine->Bases[0]->SquadMining->Units.size();
 }

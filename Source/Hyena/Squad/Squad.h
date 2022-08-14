@@ -1,5 +1,5 @@
 #pragma once
-#include <memory>
+#include "Common.h"
 
 namespace Hyena
 {

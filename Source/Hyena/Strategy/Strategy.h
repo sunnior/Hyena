@@ -6,10 +6,13 @@ namespace Hyena
 	class CStrategy
 	{
 	public:
-		virtual void Initialize(class CEngine* InEngine) 
+		void Initialize(class CEngine* InEngine) 
 		{
 			Engine = InEngine;
+			OnInitialize();
 		};
+
+		virtual void OnInitialize() {};
 
 		virtual void Update() {};
 

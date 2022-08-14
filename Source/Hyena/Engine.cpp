@@ -42,7 +42,8 @@ void CEngine::Initialize()
 
 	luabridge::getGlobalNamespace(L)
 		.beginClass<CStrategyManager>("StrategyManager")
-		.addFunction("CreateStrategy", &CStrategyManager::CreateStrategy);
+		.addFunction("CreateStrategy", &CStrategyManager::CreateStrategy)
+		.addFunction("GetWorkersCount", &CStrategyManager::GetWorkersCount);
 
 	StrategyManager = new CStrategyManager;
 	StrategyManager->Initialize(this);

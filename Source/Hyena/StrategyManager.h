@@ -16,6 +16,9 @@ namespace Hyena
 
 		void CreateStrategy(const std::string& Name);
 
+		//todo Lua Interface
+		int GetWorkersCount();
+
 		std::vector<class CStrategy*> Strategies;
 
 		class CEngine* Engine;
