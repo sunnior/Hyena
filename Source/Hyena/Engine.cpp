@@ -22,6 +22,8 @@ CStrategyManager* GetGlobalStrategyManger()
 
 void CEngine::Initialize()
 {
+	std::srand(std::time(nullptr));
+
 	BWEM::Map::Instance().Initialize();
 	BWEM::Map::Instance().EnableAutomaticPathAnalysis();
 
@@ -29,7 +31,7 @@ void CEngine::Initialize()
 	//BWEM::utils::printMap(BWEM::Map::Instance());      // will print the map into the file <StarCraftFolder>bwapi-data/map.bmp
 	//BWEM::utils::pathExample(BWEM::Map::Instance());   // add to the printed map a path between two starting locations
 
-	BWAPI::Broodwar->setLocalSpeed(10);
+	BWAPI::Broodwar->setLocalSpeed(5);
 	BWAPI::Broodwar->enableFlag(BWAPI::Flag::UserInput);
 	Race = BWAPI::Broodwar->self()->getRace();
 
@@ -65,9 +67,11 @@ void CEngine::Initialize()
 	}
 
 	std::shared_ptr<CBase> Base = std::make_shared<CBase>();
-	Base->Initialize(this, Workers);
+	Base->Initialize(this, BWAPI::Broodwar->self()->getStartLocation());
 	Bases.push_back(Base);
 
+	Base->AddWorkers(Workers);
+		
 	//Create Producer
 	if (BWAPI::Broodwar->self()->getRace() != BWAPI::Races::Zerg)
 	{
@@ -119,16 +123,20 @@ void CEngine::Update()
 			case BWAPI::EventType::UnitDestroy:
 			{
 				BWAPI::Unit Unit = e.getUnit();
-				for (auto& Squad : Squads)
+				if (!Unit->getType().isBuilding() && Unit->getPlayer() == BWAPI::Broodwar->self())
 				{
-					if (std::find(Squad->Units.begin(), Squad->Units.end(), Unit) != Squad->Units.end())
+					for (auto& Squad : Squads)
 					{
-						Squad->SquadEvents.push_back(SSquadEvent{ SSquadEvent::ESquadEvent::UnitDestroyed, Unit });
-						Unit = nullptr;
-						break;
+						if (std::find(Squad->Units.begin(), Squad->Units.end(), Unit) != Squad->Units.end())
+						{
+							Squad->SquadEvents.push_back(SSquadEvent{ SSquadEvent::ESquadEvent::UnitDestroyed, Unit });
+							Unit = nullptr;
+							break;
+						}
 					}
+					assert(!Unit);
 				}
-				assert(!Unit);
+
 			}
 		}
 	}

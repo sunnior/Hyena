@@ -1,6 +1,5 @@
 #pragma once
 #include "Squad.h"
-#include <BWAPI.h>
 #include "Base.h"
 
 namespace Hyena
@@ -12,5 +11,7 @@ namespace Hyena
 		BWAPI::Unit RemoveCloseUnit(int x, int y);
 
 		void OnUpdate() override;
+
+		class CBase* Base;
 	};
 }

@@ -1,5 +1,6 @@
 #include "SquadMining.h"
 #include "Tools.h"
+#include "Base.h"
 
 using namespace Hyena;
 
@@ -10,14 +11,16 @@ void CSquadMining::AddUnit(BWAPI::Unit Unit)
 
 void CSquadMining::OnUpdate()
 {
+	const std::vector<BWEM::Mineral*> Minerals = Base->GraphBase->Minerals();
 	for (auto& Unit : Units)
 	{
 		if (!Unit->isIdle())
 		{
 			continue;;
 		}
-		// Get the closest mineral to this worker unit
-		BWAPI::Unit closestMineral = Tools::GetClosestUnitTo(Unit, BWAPI::Broodwar->getMinerals());
+
+
+		BWAPI::Unit closestMineral = Minerals[std::rand() % Minerals.size()]->Unit();
 
 		// If a valid mineral was found, right click it with the unit in order to start harvesting
 		if (closestMineral) { Unit->rightClick(closestMineral); }
