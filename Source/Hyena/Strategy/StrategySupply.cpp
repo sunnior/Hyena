@@ -1,6 +1,7 @@
 #include "StrategySupply.h"
 #include "Engine.h"
 #include "Producer/Producer.h"
+#include "Producer/ProducerManager.h"
 
 using namespace Hyena;
 
@@ -23,7 +24,7 @@ void CStrategySupply::Update()
 		{
 			BWAPI::UnitType SupplyType = Engine->Race.getSupplyProvider();
 
-			for (auto& Producer : Engine->Producers)
+			for (auto& Producer : Engine->ProducerManager->Producers)
 			{
 				if (Producer->CanProduce(SupplyType))
 				{

@@ -12,7 +12,5 @@ namespace Hyena
 		BWAPI::Unit RemoveCloseUnit(int x, int y);
 
 		void OnUpdate() override;
-
-		std::vector<BWAPI::Unit> Units;
 	};
 }

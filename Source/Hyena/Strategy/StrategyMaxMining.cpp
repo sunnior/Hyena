@@ -3,6 +3,7 @@
 #include "Base.h"
 #include "Engine.h"
 #include "Producer/Producer.h"
+#include "Producer/ProducerManager.h"
 #include "Squad/SquadMining.h"
 
 using namespace Hyena;
@@ -58,7 +59,7 @@ void CStrategyMaxMining::Update()
 		int NumTrainWorkers = Engine->Bases[0]->GetDesireWorkers() - Engine->Bases[0]->SquadMining->Units.size() - Orders.size();
 		if (NumTrainWorkers > 0)
 		{
-			for (auto& Producer : Engine->Producers)
+			for (auto& Producer : Engine->ProducerManager->Producers)
 			{
 				if (Producer->CanProduce(WorkerType))
 				{

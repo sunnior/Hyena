@@ -14,15 +14,6 @@ namespace Hyena
 		void Update();
 
 		template<class T>
-		std::shared_ptr<T> CreateProducer()
-		{
-			std::shared_ptr<T> Producer = std::make_shared<T>();
-			Producer->Initialize(this);
-			Producers.push_back(Producer);
-			return Producer;
-		}
-
-		template<class T>
 		std::shared_ptr<T> CreateSquad()
 		{
 			std::shared_ptr<T> Squad = std::make_shared<T>();
@@ -37,8 +28,9 @@ namespace Hyena
 		}
 
 		class CStrategyManager* StrategyManager;
+		class CProducerManager* ProducerManager;
+
 		std::vector<std::shared_ptr<class CBase>> Bases;
-		std::vector<std::shared_ptr<class CProducer>> Producers;
 		std::vector<std::shared_ptr<class CSquad>> Squads;
 		lua_State* L;
 

@@ -29,8 +29,14 @@ void CStrategyScout::Update()
 		if (Unit)
 		{
 			Squad = Engine->CreateSquad<CSquadScout>();
-			Squad->Unit = Unit;
+			Squad->SetUnit(Unit);
 			Squad->TargetPos = BWAPI::Position(StargetLocations[0]);
 		}
+	}
+
+	if (Squad->bFail)
+	{
+		Engine->DeleteSquad(Squad);
+		Squad.reset();
 	}
 }

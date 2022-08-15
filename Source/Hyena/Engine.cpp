@@ -1,13 +1,15 @@
 #include "Engine.h"
-#include "StrategyManager.h"
+#include "Strategy/StrategyManager.h"
+#include "Producer/ProducerManager.h"
 #include "Base.h"
 #include "LuaBridge.h"
+#include "Squad/Squad.h"
+#include "bwem.h"
+
 #include "Producer/Producer.h"
 #include "Producer/ProducerZergLarva.h"
 #include "Producer/ProducerBuilding.h"
 #include "Producer/ProducerWorker.h"
-#include "Squad/Squad.h"
-#include "bwem.h"
 
 using namespace Hyena;
 
@@ -48,6 +50,9 @@ void CEngine::Initialize()
 	StrategyManager = new CStrategyManager;
 	StrategyManager->Initialize(this);
 
+	ProducerManager = new CProducerManager;
+	ProducerManager->Initialize(this);
+
 	//todo find base
 	std::vector<BWAPI::Unit> Workers;
 	for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
@@ -68,7 +73,7 @@ void CEngine::Initialize()
 	{
 		BWAPI::UnitType DepotType = BWAPI::Broodwar->self()->getRace().getResourceDepot();
 
-		std::shared_ptr<CProducer> ProducerDepot = CreateProducer<CProducerBuilding>();
+		std::shared_ptr<CProducer> ProducerDepot = ProducerManager->CreateProducer<CProducerBuilding>();
 		for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
 		{
 			if (Unit->getType() == DepotType)
@@ -80,10 +85,10 @@ void CEngine::Initialize()
 	}
 	else
 	{
-		std::shared_ptr<CProducer> Producer = CreateProducer<CProducerZergLarva>();
+		std::shared_ptr<CProducer> Producer = ProducerManager->CreateProducer<CProducerZergLarva>();
 	}
 
-	std::shared_ptr<CProducerWorker> ProducerWorker = CreateProducer<CProducerWorker>();
+	std::shared_ptr<CProducerWorker> ProducerWorker = ProducerManager->CreateProducer<CProducerWorker>();
 	ProducerWorker->Base = Base;
 }
 
@@ -111,45 +116,25 @@ void CEngine::Update()
 				}
 				break;
 			}
+			case BWAPI::EventType::UnitDestroy:
+			{
+				BWAPI::Unit Unit = e.getUnit();
+				for (auto& Squad : Squads)
+				{
+					if (std::find(Squad->Units.begin(), Squad->Units.end(), Unit) != Squad->Units.end())
+					{
+						Squad->SquadEvents.push_back(SSquadEvent{ SSquadEvent::ESquadEvent::UnitDestroyed, Unit });
+						Unit = nullptr;
+						break;
+					}
+				}
+				assert(!Unit);
+			}
 		}
 	}
 
 	StrategyManager->Update();
-
-	for (auto& Producer : Producers)
-	{
-		Producer->Update();
-	}
-
-
-	float HighestPriorty = 0;
-	std::shared_ptr<CProducer> HighestPriortyProducer;
-
-	int ReservedMinerals = 0;
-	int ReservedGas = 0;
-	for (auto& Producer : Producers)
-	{
-		ReservedMinerals += Producer->ReservedMinerals;
-		ReservedGas += Producer->ReservedGas;
-		if (Producer->GetPriority() > HighestPriorty)
-		{
-			HighestPriortyProducer = Producer;
-		}
-	}
-
-	if (HighestPriortyProducer.get())
-	{
-		int NeedGas, NeedMinerals;
-		HighestPriortyProducer->GetResourceNeeded(NeedMinerals, NeedGas);
-		//todo 给一个预估时间，worker可以提前走
-		if ((NeedMinerals <= (BWAPI::Broodwar->self()->minerals() - ReservedMinerals)) &&
-			(NeedGas <= (BWAPI::Broodwar->self()->gas() - ReservedGas)))
-		{
-			HighestPriortyProducer->ReserveResources(NeedMinerals, NeedGas);
-			ReservedMinerals += NeedMinerals;
-			ReservedGas += NeedGas;
-		}
-	}
+	ProducerManager->Update();
 
 	for (auto& Squad : Squads)
 	{

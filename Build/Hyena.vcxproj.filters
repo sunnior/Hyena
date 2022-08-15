@@ -38,9 +38,6 @@
     <ClInclude Include="..\Source\Hyena\HyenaAIModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Hyena\StrategyManager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Hyena\Base.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -89,15 +86,18 @@
     <ClInclude Include="..\Source\Hyena\Squad\SquadScout.h">
       <Filter>Source Files\Squad</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Producer\ProducerManager.h">
+      <Filter>Source Files\Producer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Hyena\Strategy\StrategyManager.h">
+      <Filter>Source Files\Strategy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Hyena\HyenaAIModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Hyena\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Hyena\StrategyManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Hyena\Base.cpp">
@@ -144,6 +144,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Hyena\Squad\SquadScout.cpp">
       <Filter>Source Files\Squad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Producer\ProducerManager.cpp">
+      <Filter>Source Files\Producer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Hyena\Strategy\StrategyManager.cpp">
+      <Filter>Source Files\Strategy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

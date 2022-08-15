@@ -13,4 +13,6 @@ void CSquad::Update()
 {
 	assert(Engine);
 	OnUpdate();
+
+	SquadEvents.clear();
 }

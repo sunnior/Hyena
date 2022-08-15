@@ -14,6 +14,7 @@ void CSquadBuilder::AddOrder(const std::shared_ptr<struct SBuildOrder>& InOrder)
 void CSquadBuilder::AddUnit(BWAPI::Unit InUnit)
 {
 	Unit = InUnit;
+	Units.push_back(Unit);
 }
 
 void CSquadBuilder::OnUpdate()

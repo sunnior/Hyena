@@ -3,6 +3,16 @@
 
 namespace Hyena
 {
+	struct SSquadEvent
+	{
+		enum class ESquadEvent
+		{
+			UnitDestroyed,
+		};
+		ESquadEvent SquadEvent;
+		BWAPI::Unit Unit;
+	};
+
 	class CSquad
 	{
 	public:
@@ -13,6 +23,9 @@ namespace Hyena
 		virtual void OnUpdate() {};
 
 		class CEngine* Engine;
+
+		std::vector<BWAPI::Unit> Units;
+		std::vector<SSquadEvent> SquadEvents;
 	};
 
 }

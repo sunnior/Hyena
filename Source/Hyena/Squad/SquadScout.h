@@ -6,12 +6,15 @@ namespace Hyena
 	class CSquadScout : public CSquad
 	{
 	public:
+		void SetUnit(BWAPI::Unit Unit);
 		BWAPI::Position TargetPos;
-		//todo 单位挂掉怎么办
-		BWAPI::Unit Unit;
 
 		//todo 这个是临时的状态变量
 		bool bMoving = false;;
+		bool bFail = false;
 		void OnUpdate() override;
+	private:
+		BWAPI::Unit Unit;
+
 	};
 }
