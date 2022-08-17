@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Scripts\StrategyManagerInitialize.lua" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\Source\Hyena\Base.h" />
     <ClInclude Include="..\Source\Hyena\Common.h" />
     <ClInclude Include="..\Source\Hyena\Engine.h" />
@@ -63,6 +60,13 @@
     <ClCompile Include="..\Source\Hyena\Strategy\StrategyScout.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\StrategySupply.cpp" />
     <ClCompile Include="..\Source\Hyena\Tools.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Scripts\class.lua" />
+    <None Include="..\Scripts\Engine.lua" />
+    <None Include="..\Scripts\Init.lua" />
+    <None Include="..\Scripts\Strategy.lua" />
+    <None Include="..\Scripts\StrategyOpening.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

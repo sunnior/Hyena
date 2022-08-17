@@ -14,6 +14,8 @@ namespace Hyena
 
 		void Update() override;
 
+		int GetMiningWorkersCount();
+
 		std::vector<std::shared_ptr<struct SBuildOrder>> Orders;
 
 		static void BindLua(lua_State* L);

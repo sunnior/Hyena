@@ -13,6 +13,8 @@ namespace Hyena
 
 		void Update();
 
+		std::string GetRace() const;
+
 		template<class T>
 		std::shared_ptr<T> CreateSquad()
 		{

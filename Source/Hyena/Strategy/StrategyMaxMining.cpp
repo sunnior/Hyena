@@ -74,6 +74,11 @@ void CStrategyMaxMining::Update()
 	}
 }
 
+int CStrategyMaxMining::GetMiningWorkersCount()
+{
+	return Engine->Bases[0]->SquadMining->Units.size();
+}
+
 STestBindLua TestBindLuaStrategyMaxMining(&CStrategyMaxMining::BindLua);
 
 void CStrategyMaxMining::BindLua(lua_State* L)
@@ -81,5 +86,6 @@ void CStrategyMaxMining::BindLua(lua_State* L)
 	luabridge::getGlobalNamespace(L)
 		.deriveClass<CStrategyMaxMining, CStrategy>("CppStrategyMaxMining")
 		.addConstructor<void (*) (void)>()
+		.addFunction("GetMiningWorkersCount", &CStrategyMaxMining::GetMiningWorkersCount)
 		.endClass();
 }

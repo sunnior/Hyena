@@ -46,6 +46,7 @@ void CEngine::Initialize()
 
 	luabridge::getGlobalNamespace(L)
 		.beginClass<CEngine>("CEngine")
+			.addProperty("Race", &CEngine::GetRace)
 		.endClass();
 
 
@@ -55,7 +56,7 @@ void CEngine::Initialize()
 	}
 
 	const int ret = luaL_dofile(L, "Init.lua");
-	assert(!ret || !printf(lua_tostring(L, -1)));
+	assert(!ret || !printf("%s\n", lua_tostring(L, -1)));
 
 	ProducerManager = new CProducerManager;
 	ProducerManager->Initialize(this);
@@ -90,7 +91,6 @@ void CEngine::Initialize()
 				ProducerDepot->Units.push_back(Unit);
 			}
 		}
-
 	}
 	else
 	{
@@ -141,13 +141,12 @@ void CEngine::Update()
 					}
 					assert(!Unit);
 				}
-
 			}
 		}
 	}
 
 	const int ret = luaL_dostring(L, "Engine:Update()");
-	assert(!ret || !printf(lua_tostring(L, -1)));
+	assert(!ret || !printf("%s\n", lua_tostring(L, -1)));
 
 	for (auto& Strategy : Strategies)
 	{
@@ -172,4 +171,20 @@ void CEngine::Finialize()
 
 	delete ProducerManager;
 	ProducerManager = nullptr;
+}
+
+std::string CEngine::GetRace() const
+{
+	switch (Race)
+	{
+	case BWAPI::Races::Protoss:
+		return "Protoss";
+	case BWAPI::Races::Terran:
+		return "Terran";
+	case BWAPI::Races::Zerg:
+		return "Zerg";
+	default:
+		return "";
+		break;
+	}
 }

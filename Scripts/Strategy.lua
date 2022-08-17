@@ -38,7 +38,18 @@ function CStrategyDefaultOpening:Initialize(Engine)
 
 	self.StrategyMaxMining = self:CreateSubStrategy(CStrategyMaxMining())
 	self.StrategySupply = self:CreateSubStrategy(CStrategySupply())
-	self.StrategyScout = self:CreateSubStrategy(CStrategyScout())
+	self.StrategyScout = nil
+	self.StrategyArmy = self:CreateSubStrategy(CStrategyArmy())
+end
+
+function CStrategyDefaultOpening:Update()
+	CStrategyComposite.Update(self)
+
+	if not self.StrategyScout then
+		if self.StrategyMaxMining:GetMiningWorkersCount() > 8 then
+			self.StrategyScout = self:CreateSubStrategy(CStrategyScout())
+		end
+	end
 end
 
 CStrategyRoot = class(CStrategyComposite)
@@ -59,6 +70,10 @@ end
 
 function CStrategyMaxMining:Update()
 	CStrategy.Update(self)
+end
+
+function CStrategyMaxMining:GetMiningWorkersCount()
+	return self.Cpp:GetMiningWorkersCount()
 end
 
 CStrategySupply = class(CStrategy)
@@ -83,4 +98,24 @@ end
 
 function CStrategyScout:Update()
 	CStrategy.Update(self)
+end
+
+CStrategyArmy = class(CStrategy)
+
+function CStrategyArmy:Initialize(Engine)
+	CStrategy.Initialize(self, Engine)
+	self.Cpp = CppStrategyArmy()
+	self.Cpp:Initialize(Engine.Cpp)
+
+	self.Cpp.LineCount = 2
+
+	local Race = Engine.Cpp.Race
+	if Race == "Protoss" then
+		self.Cpp:AddOrder("Zealot", 8)
+	elseif Race == "Terran" then
+
+	elseif Race == "Zerg" then
+
+	end
+
 end

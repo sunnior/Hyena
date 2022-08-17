@@ -27,11 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Scripts\StrategyManagerInitialize.lua">
-      <Filter>Scripts</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\Source\Hyena\Engine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -151,5 +146,22 @@
     <ClCompile Include="..\Source\Hyena\Strategy\StrategyArmy.cpp">
       <Filter>Source Files\Strategy</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Scripts\Init.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\Scripts\Strategy.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\Scripts\StrategyOpening.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\Scripts\class.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\Scripts\Engine.lua">
+      <Filter>Scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>
