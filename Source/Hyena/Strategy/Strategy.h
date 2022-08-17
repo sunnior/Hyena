@@ -6,6 +6,8 @@ namespace Hyena
 	class CStrategy
 	{
 	public:
+		CStrategy() {};
+
 		void Initialize(class CEngine* InEngine) 
 		{
 			Engine = InEngine;
@@ -15,6 +17,8 @@ namespace Hyena
 		virtual void OnInitialize() {};
 
 		virtual void Update() {};
+
+		static void BindLua(lua_State* L);
 
 	protected:
 		class CEngine* Engine;

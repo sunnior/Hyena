@@ -2,7 +2,6 @@
 #include "Strategy/StrategyManager.h"
 #include "Producer/ProducerManager.h"
 #include "Base.h"
-#include "LuaBridge.h"
 #include "Squad/Squad.h"
 #include "bwem.h"
 
@@ -14,15 +13,22 @@
 using namespace Hyena;
 
 CEngine* Hyena::_GEngine = nullptr;
+int STestBindLua::Index = 0;
+TLuaRegisterFunc STestBindLua::LuaRegisterFuncs[STestBindLua::MaxFuncsCount];
 
 CStrategyManager* GetGlobalStrategyManger()
 {
 	return _GEngine->StrategyManager;
 }
 
+CEngine* GetGlobalEngine()
+{
+	return _GEngine;
+}
+
 void CEngine::Initialize()
 {
-	std::srand(std::time(nullptr));
+	std::srand(unsigned int(std::time(nullptr)));
 
 	BWEM::Map::Instance().Initialize();
 	BWEM::Map::Instance().EnableAutomaticPathAnalysis();
@@ -39,15 +45,36 @@ void CEngine::Initialize()
 
 	L = luaL_newstate();
 	luaL_openlibs(L);
-	luaL_dofile(L, "EngineInitialize.lua");
 
 	luabridge::getGlobalNamespace(L)
 		.addFunction("GetGlobalStrategyManger", &GetGlobalStrategyManger);
 
 	luabridge::getGlobalNamespace(L)
+		.addFunction("GetGlobalEngine", &GetGlobalEngine);
+
+	luabridge::getGlobalNamespace(L)
 		.beginClass<CStrategyManager>("StrategyManager")
 		.addFunction("CreateStrategy", &CStrategyManager::CreateStrategy)
-		.addFunction("GetWorkersCount", &CStrategyManager::GetWorkersCount);
+		.addFunction("GetWorkersCount", &CStrategyManager::GetWorkersCount)
+		.endClass();
+
+	luabridge::getGlobalNamespace(L)
+		.beginClass<CEngine>("CEngine")
+		.endClass();
+
+
+	for (int i = 0; i < STestBindLua::Index; ++i)
+	{
+		STestBindLua::LuaRegisterFuncs[i](L);
+	}
+
+	const int ret = luaL_dofile(L, "Init.lua");
+/*
+	if (ret != LUA_OK)
+	{
+		const char* ErrString = lua_tostring(L, -1);
+		int a = 0;
+	}*/
 
 	StrategyManager = new CStrategyManager;
 	StrategyManager->Initialize(this);
@@ -141,6 +168,14 @@ void CEngine::Update()
 		}
 	}
 
+	const int ret = luaL_dostring(L, "Engine:Update()");
+/*
+	if (ret != LUA_OK)
+	{
+		const char* ErrString = lua_tostring(L, -1);
+		int a = 0;
+	}*/
+
 	StrategyManager->Update();
 	ProducerManager->Update();
 
@@ -159,4 +194,7 @@ void CEngine::Finialize()
 	lua_close(L);
 	delete StrategyManager;
 	StrategyManager = nullptr;
+
+	delete ProducerManager;
+	ProducerManager = nullptr;
 }

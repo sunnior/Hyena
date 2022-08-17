@@ -18,7 +18,12 @@ void CStrategyManager::Initialize(class CEngine* InEngine)
 
 void CStrategyManager::Update()
 {
-	luaL_dostring(Engine->L, "StrategyManagerLua:Update()");
+	const int ret = luaL_dostring(Engine->L, "StrategyManagerLua:Update()");
+	if (ret != LUA_OK)
+	{
+		const char* ErrString = lua_tostring(Engine->L, -1);
+		int a = 0;
+	}
 
 	for (auto Strategy : Strategies)
 	{
