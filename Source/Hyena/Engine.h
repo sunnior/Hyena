@@ -8,6 +8,8 @@ namespace Hyena
 	class CEngine
 	{
 	public:
+		static CEngine* GetGlobalEngine() { return _GEngine; }
+
 		void Initialize();
 		void Finialize();
 
@@ -42,8 +44,6 @@ namespace Hyena
 
 		BWAPI::Race Race;
 	private:
-
+		static CEngine* _GEngine;
 	};
-
-	extern CEngine* _GEngine;
 }

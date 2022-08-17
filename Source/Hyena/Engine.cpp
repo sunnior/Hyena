@@ -12,14 +12,9 @@
 
 using namespace Hyena;
 
-CEngine* Hyena::_GEngine = nullptr;
-int STestBindLua::Index = 0;
-TLuaRegisterFunc STestBindLua::LuaRegisterFuncs[STestBindLua::MaxFuncsCount];
-
-CEngine* GetGlobalEngine()
-{
-	return _GEngine;
-}
+CEngine* CEngine::_GEngine = nullptr;
+int SLuaRegister::Index = 0;
+TLuaRegisterFunc SLuaRegister::LuaRegisterFuncs[SLuaRegister::MaxFuncsCount];
 
 void CEngine::Initialize()
 {
@@ -41,18 +36,9 @@ void CEngine::Initialize()
 	L = luaL_newstate();
 	luaL_openlibs(L);
 
-	luabridge::getGlobalNamespace(L)
-		.addFunction("GetGlobalEngine", &GetGlobalEngine);
-
-	luabridge::getGlobalNamespace(L)
-		.beginClass<CEngine>("CEngine")
-			.addProperty("Race", &CEngine::GetRace)
-		.endClass();
-
-
-	for (int i = 0; i < STestBindLua::Index; ++i)
+	for (int i = 0; i < SLuaRegister::Index; ++i)
 	{
-		STestBindLua::LuaRegisterFuncs[i](L);
+		SLuaRegister::LuaRegisterFuncs[i](L);
 	}
 
 	const int ret = luaL_dofile(L, "Init.lua");
@@ -188,3 +174,12 @@ std::string CEngine::GetRace() const
 		break;
 	}
 }
+
+
+BEGIN_REGISTERLUA(CEngine)
+	luabridge::getGlobalNamespace(L)
+	.beginClass<CEngine>("CppEngine")
+	.addStaticFunction("GetGlobalEngine", &CEngine::GetGlobalEngine)
+	.addProperty("Race", &CEngine::GetRace)
+	.endClass();
+End_REGISTERLUA

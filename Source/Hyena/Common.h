@@ -11,10 +11,10 @@
 namespace Hyena {
 	typedef void (*TLuaRegisterFunc)(lua_State*);
 
-	struct STestBindLua
+	struct SLuaRegister
 	{
 
-		STestBindLua(TLuaRegisterFunc Func)
+		SLuaRegister(TLuaRegisterFunc Func)
 		{
 			assert(Index < MaxFuncsCount);
 			LuaRegisterFuncs[Index] = Func;
@@ -28,3 +28,7 @@ namespace Hyena {
 	};
 
 }
+
+#define BEGIN_REGISTERLUA(Name) SLuaRegister LuaRegister_##Name([](lua_State* L) {
+#define End_REGISTERLUA });
+

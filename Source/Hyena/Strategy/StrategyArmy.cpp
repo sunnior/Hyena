@@ -10,14 +10,11 @@ void CStrategyArmy::AddOrder(const std::string& UnitName, int Count)
 	}
 }
 
-STestBindLua TestBindLuaStrategyArmy(&CStrategyArmy::BindLua);
-
-void CStrategyArmy::BindLua(lua_State* L)
-{
+BEGIN_REGISTERLUA(CStrategyArmy)
 	luabridge::getGlobalNamespace(L)
 		.deriveClass<CStrategyArmy, CStrategy>("CppStrategyArmy")
 		.addConstructor<void (*) (void)>()
 		.addProperty("LineCount", &CStrategyArmy::GetLineCount, &CStrategyArmy::SetLineCount)
 		.addFunction("AddOrder", &CStrategyArmy::AddOrder)
 		.endClass();
-}
+End_REGISTERLUA

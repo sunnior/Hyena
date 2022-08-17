@@ -41,12 +41,9 @@ void CStrategyScout::Update()
 	}
 }
 
-STestBindLua TestBindLuaStrategyScout(&CStrategyScout::BindLua);
-
-void CStrategyScout::BindLua(lua_State* L)
-{
+BEGIN_REGISTERLUA(CStrategyScout)
 	luabridge::getGlobalNamespace(L)
 		.deriveClass<CStrategyScout, CStrategy>("CppStrategyScout")
 		.addConstructor<void (*) (void)>()
 		.endClass();
-}
+End_REGISTERLUA

@@ -12,7 +12,5 @@ namespace Hyena
 		BWAPI::TilePosition GetBestPosition(BWAPI::UnitType UnitType);
 
 		std::shared_ptr<struct SBuildOrder> Order;
-
-		static void BindLua(lua_State* L);
 	};
 }

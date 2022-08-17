@@ -4,7 +4,7 @@ require "Strategy"
 CEngine = class()
 
 function CEngine:Initialize()
-	self.Cpp = GetGlobalEngine()
+	self.Cpp = CppEngine.GetGlobalEngine()
 	self.RootStrategy = CStrategyRoot()
 	self.RootStrategy:Initialize(self)
 end
