@@ -1,6 +1,6 @@
 #include "Engine.h"
-#include "Strategy/StrategyManager.h"
 #include "Producer/ProducerManager.h"
+#include "Strategy/Strategy.h"
 #include "Base.h"
 #include "Squad/Squad.h"
 #include "bwem.h"
@@ -15,11 +15,6 @@ using namespace Hyena;
 CEngine* Hyena::_GEngine = nullptr;
 int STestBindLua::Index = 0;
 TLuaRegisterFunc STestBindLua::LuaRegisterFuncs[STestBindLua::MaxFuncsCount];
-
-CStrategyManager* GetGlobalStrategyManger()
-{
-	return _GEngine->StrategyManager;
-}
 
 CEngine* GetGlobalEngine()
 {
@@ -47,16 +42,7 @@ void CEngine::Initialize()
 	luaL_openlibs(L);
 
 	luabridge::getGlobalNamespace(L)
-		.addFunction("GetGlobalStrategyManger", &GetGlobalStrategyManger);
-
-	luabridge::getGlobalNamespace(L)
 		.addFunction("GetGlobalEngine", &GetGlobalEngine);
-
-	luabridge::getGlobalNamespace(L)
-		.beginClass<CStrategyManager>("StrategyManager")
-		.addFunction("CreateStrategy", &CStrategyManager::CreateStrategy)
-		.addFunction("GetWorkersCount", &CStrategyManager::GetWorkersCount)
-		.endClass();
 
 	luabridge::getGlobalNamespace(L)
 		.beginClass<CEngine>("CEngine")
@@ -69,15 +55,7 @@ void CEngine::Initialize()
 	}
 
 	const int ret = luaL_dofile(L, "Init.lua");
-/*
-	if (ret != LUA_OK)
-	{
-		const char* ErrString = lua_tostring(L, -1);
-		int a = 0;
-	}*/
-
-	StrategyManager = new CStrategyManager;
-	StrategyManager->Initialize(this);
+	assert(!ret || !printf(lua_tostring(L, -1)));
 
 	ProducerManager = new CProducerManager;
 	ProducerManager->Initialize(this);
@@ -169,14 +147,13 @@ void CEngine::Update()
 	}
 
 	const int ret = luaL_dostring(L, "Engine:Update()");
-/*
-	if (ret != LUA_OK)
-	{
-		const char* ErrString = lua_tostring(L, -1);
-		int a = 0;
-	}*/
+	assert(!ret || !printf(lua_tostring(L, -1)));
 
-	StrategyManager->Update();
+	for (auto& Strategy : Strategies)
+	{
+		Strategy->Update();
+	}
+
 	ProducerManager->Update();
 
 	for (auto& Squad : Squads)
@@ -192,8 +169,6 @@ void CEngine::Update()
 void CEngine::Finialize()
 {
 	lua_close(L);
-	delete StrategyManager;
-	StrategyManager = nullptr;
 
 	delete ProducerManager;
 	ProducerManager = nullptr;

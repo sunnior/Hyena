@@ -40,3 +40,13 @@ void CStrategyScout::Update()
 		Squad.reset();
 	}
 }
+
+STestBindLua TestBindLuaStrategyScout(&CStrategyScout::BindLua);
+
+void CStrategyScout::BindLua(lua_State* L)
+{
+	luabridge::getGlobalNamespace(L)
+		.deriveClass<CStrategyScout, CStrategy>("CppStrategyScout")
+		.addConstructor<void (*) (void)>()
+		.endClass();
+}

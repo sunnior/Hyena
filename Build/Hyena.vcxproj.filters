@@ -89,13 +89,7 @@
     <ClInclude Include="..\Source\Hyena\Producer\ProducerManager.h">
       <Filter>Source Files\Producer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Hyena\Strategy\StrategyManager.h">
-      <Filter>Source Files\Strategy</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Hyena\Strategy\StrategyArmy.h">
-      <Filter>Source Files\Strategy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Hyena\Strategy\StrategyComposite.h">
       <Filter>Source Files\Strategy</Filter>
     </ClInclude>
   </ItemGroup>
@@ -154,13 +148,7 @@
     <ClCompile Include="..\Source\Hyena\Producer\ProducerManager.cpp">
       <Filter>Source Files\Producer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Hyena\Strategy\StrategyManager.cpp">
-      <Filter>Source Files\Strategy</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Hyena\Strategy\StrategyArmy.cpp">
-      <Filter>Source Files\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Hyena\Strategy\StrategyComposite.cpp">
       <Filter>Source Files\Strategy</Filter>
     </ClCompile>
   </ItemGroup>

@@ -52,3 +52,13 @@ BWAPI::TilePosition CStrategySupply::GetBestPosition(BWAPI::UnitType UnitType)
 	BWAPI::TilePosition buildPos = BWAPI::Broodwar->getBuildLocation(UnitType, desiredPos, maxBuildRange, buildingOnCreep);
 	return buildPos;
 }
+
+STestBindLua TestBindLuaStrategySupply(&CStrategySupply::BindLua);
+
+void CStrategySupply::BindLua(lua_State* L)
+{
+	luabridge::getGlobalNamespace(L)
+		.deriveClass<CStrategySupply, CStrategy>("CppStrategySupply")
+		.addConstructor<void (*) (void)>()
+		.endClass();
+}

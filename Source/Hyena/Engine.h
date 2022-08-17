@@ -27,11 +27,11 @@ namespace Hyena
 			Squads.erase(std::find(Squads.begin(), Squads.end(), Squad));
 		}
 
-		class CStrategyManager* StrategyManager;
 		class CProducerManager* ProducerManager;
 
 		std::vector<std::shared_ptr<class CBase>> Bases;
 		std::vector<std::shared_ptr<class CSquad>> Squads;
+		std::vector<class CStrategy*> Strategies;
 		lua_State* L;
 
 		//todo 

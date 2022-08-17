@@ -8,11 +8,7 @@ namespace Hyena
 	public:
 		CStrategy() {};
 
-		void Initialize(class CEngine* InEngine) 
-		{
-			Engine = InEngine;
-			OnInitialize();
-		};
+		void Initialize(class CEngine* InEngine);
 
 		virtual void OnInitialize() {};
 

@@ -1,4 +1,5 @@
 #include "Strategy.h"
+#include "Engine.h"
 
 using namespace Hyena;
 
@@ -10,5 +11,13 @@ void CStrategy::BindLua(lua_State* L)
 		.beginClass<CStrategy>("CppStrategy")
 			.addConstructor<void (*) (void)>()
 			.addFunction("Initialize", &CStrategy::Initialize)
+			.addFunction("Update", &CStrategy::Update)
 		.endClass();
+}
+
+void CStrategy::Initialize(class CEngine* InEngine)
+{
+	Engine = InEngine;
+	Engine->Strategies.push_back(this);
+	OnInitialize();
 }

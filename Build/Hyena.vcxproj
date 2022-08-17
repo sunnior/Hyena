@@ -38,8 +38,6 @@
     <ClInclude Include="..\Source\Hyena\Squad\SquadScout.h" />
     <ClInclude Include="..\Source\Hyena\Strategy\Strategy.h" />
     <ClInclude Include="..\Source\Hyena\Strategy\StrategyArmy.h" />
-    <ClInclude Include="..\Source\Hyena\Strategy\StrategyComposite.h" />
-    <ClInclude Include="..\Source\Hyena\Strategy\StrategyManager.h" />
     <ClInclude Include="..\Source\Hyena\Strategy\StrategyMaxMining.h" />
     <ClInclude Include="..\Source\Hyena\Strategy\StrategyScout.h" />
     <ClInclude Include="..\Source\Hyena\Strategy\StrategySupply.h" />
@@ -61,8 +59,6 @@
     <ClCompile Include="..\Source\Hyena\Squad\SquadScout.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\Strategy.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\StrategyArmy.cpp" />
-    <ClCompile Include="..\Source\Hyena\Strategy\StrategyComposite.cpp" />
-    <ClCompile Include="..\Source\Hyena\Strategy\StrategyManager.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\StrategyMaxMining.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\StrategyScout.cpp" />
     <ClCompile Include="..\Source\Hyena\Strategy\StrategySupply.cpp" />

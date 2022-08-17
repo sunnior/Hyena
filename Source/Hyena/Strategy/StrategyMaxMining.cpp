@@ -79,10 +79,7 @@ STestBindLua TestBindLuaStrategyMaxMining(&CStrategyMaxMining::BindLua);
 void CStrategyMaxMining::BindLua(lua_State* L)
 {
 	luabridge::getGlobalNamespace(L)
-		.beginNamespace("Hyena")
 		.deriveClass<CStrategyMaxMining, CStrategy>("CppStrategyMaxMining")
 		.addConstructor<void (*) (void)>()
-		.addFunction("Update", &CStrategyMaxMining::Update)
-		.endClass()
-		.endNamespace();
+		.endClass();
 }
