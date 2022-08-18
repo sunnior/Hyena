@@ -30,6 +30,7 @@ void CStrategySupply::Update()
 				if (Producer->IsType(BuildType.first))
 				{
 					Order = std::make_shared<SBuildOrder>();
+					Order->Priority = 0.8f;
 					Order->UnitType = SupplyType;
 					Order->Pos = GetBestPosition(SupplyType);
 					Producer->AddOrder(Order);

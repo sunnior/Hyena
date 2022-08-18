@@ -45,5 +45,12 @@ namespace Hyena
 		BWAPI::Race Race;
 	private:
 		static CEngine* _GEngine;
+
+	public:
+#if ENABLE_DEBUG
+		void ToggleDebug(std::string Option);
+
+		bool bDebugProducer = false;
+#endif
 	};
 }

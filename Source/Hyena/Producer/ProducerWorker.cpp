@@ -58,3 +58,20 @@ int CProducerWorker::GetLineCount()
 	//todo 
 	return 4;
 }
+
+#if ENABLE_DEBUG
+void CProducerWorker::DrawDebug(const BWAPI::Position& Origin)
+{
+	std::string Info = "%cWorker:";
+
+	for (auto& BuildOrder : ProducingOrders)
+	{
+		std::string UnitName = BuildOrder->UnitType.getName();
+		UnitName = UnitName.substr(UnitName.find("_") + 1);
+		Info += UnitName;
+		Info += " ";
+	}
+
+	BWAPI::Broodwar->drawTextScreen(Origin, Info.data(), BWAPI::Text::Enum::Green);
+}
+#endif

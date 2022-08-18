@@ -32,3 +32,4 @@ namespace Hyena {
 #define BEGIN_REGISTERLUA(Name) SLuaRegister LuaRegister_##Name([](lua_State* L) {
 #define End_REGISTERLUA });
 
+#define ENABLE_DEBUG 1

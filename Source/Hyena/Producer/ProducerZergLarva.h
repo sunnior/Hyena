@@ -9,6 +9,9 @@ namespace Hyena
 		bool IsType(BWAPI::UnitType UnitType) const override;
 		void OnUpdate() override;
 
+#if ENABLE_DEBUG
+		void DrawDebug(const BWAPI::Position& Origin) override;
+#endif
 	private:
 		bool IsMyUnit(BWAPI::Unit Unit);
 	};

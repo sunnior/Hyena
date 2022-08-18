@@ -67,3 +67,10 @@ bool CProducerZergLarva::IsMyUnit(BWAPI::Unit Unit)
 	//todo
 	return (UnitType == BWAPI::UnitTypes::Zerg_Drone) || (UnitType == BWAPI::UnitTypes::Zerg_Overlord);
 }
+
+#if ENABLE_DEBUG
+void CProducerZergLarva::DrawDebug(const BWAPI::Position& Origin)
+{
+	BWAPI::Broodwar->drawTextScreen(Origin, "%cZergLarva:", BWAPI::Text::Enum::Green);
+}
+#endif

@@ -16,7 +16,7 @@ public:
 
 	void onFrame() override;
 
-	void onSendText(std::string text) override;
+	void onSendText(std::string Text) override;
 
 	void onReceiveText(BWAPI::Player player, std::string text) override;
 

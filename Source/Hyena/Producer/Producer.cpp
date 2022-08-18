@@ -37,3 +37,10 @@ void CProducer::ConsumeOrder(const std::shared_ptr<SBuildOrder>& Order)
 	//todo outUnit和这个comsume应该是一起的
 	Engine->ProducerManager->ConsumeReserved(Order);
 }
+
+#if ENABLE_DEBUG
+void CProducer::DrawDebug(const BWAPI::Position& Origin)
+{
+	BWAPI::Broodwar->drawTextScreen(Origin, "%cUnknown:", BWAPI::Text::Enum::Green);
+}
+#endif

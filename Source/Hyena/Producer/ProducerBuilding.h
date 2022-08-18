@@ -12,6 +12,9 @@ namespace Hyena
 
 		std::vector<BWAPI::Unit> Units;
 
+#if ENABLE_DEBUG
+		void DrawDebug(const BWAPI::Position& Origin) override;
+#endif
 	private:
 		bool IsMyUnit(BWAPI::Unit Unit);
 	};

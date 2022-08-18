@@ -115,6 +115,7 @@ BEGIN_REGISTERLUA(CStrategyArmy)
 	luabridge::getGlobalNamespace(L)
 		.deriveClass<CStrategyArmy, CStrategy>("CppStrategyArmy")
 		.addConstructor<void (*) (void)>()
+		.addProperty("Priority", &CStrategyArmy::GetPriority, &CStrategyArmy::SetPriority)
 		.addFunction("AddOrder", &CStrategyArmy::AddOrder)
 		.endClass();
 End_REGISTERLUA

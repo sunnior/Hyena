@@ -27,6 +27,10 @@ namespace Hyena
 
 		int TotalReservedMinerals = 0;
 		int TotalReservedGas = 0;
+
+#if ENABLE_DEBUG
+		void DrawDebug(const BWAPI::Position& Origin);
+#endif
 	};
 }
 

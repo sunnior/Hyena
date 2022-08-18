@@ -65,6 +65,7 @@ void CStrategyMaxMining::Update()
 				if (Producer->IsType(BuildType.first))
 				{
 					std::shared_ptr<SBuildOrder> Order = std::make_shared<SBuildOrder>();
+					Order->Priority = 0.5f;
 					Order->UnitType = WorkerType;
 					Producer->AddOrder(Order);
 					Orders.push_back(Order);

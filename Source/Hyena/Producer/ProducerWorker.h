@@ -15,6 +15,9 @@ namespace Hyena
 		std::shared_ptr<class CBase> Base;
 		std::vector<std::shared_ptr<class CSquadBuilder>> Squads;
 
+#if ENABLE_DEBUG
+		void DrawDebug(const BWAPI::Position& Origin) override;
+#endif
 	private:
 		int SquadUsingMinerals = 0;
 		int SquadUsingGas = 0;

@@ -84,3 +84,14 @@ void CProducerManager::ConsumeReserved(const std::shared_ptr<SBuildOrder>& Order
 	Order->ReservedMinerals = 0;
 	Order->ReservedGas = 0;
 }
+
+#if ENABLE_DEBUG
+void CProducerManager::DrawDebug(const BWAPI::Position& Origin)
+{
+	BWAPI::Broodwar->drawTextScreen(Origin, "%c---------Producer Infos---------", BWAPI::Text::Enum::Green);
+	for (unsigned int i = 0; i < Producers.size(); ++i)
+	{
+		Producers[i]->DrawDebug(Origin + BWAPI::Position(0, (i + 1) * 10));
+	}
+}
+#endif

@@ -17,9 +17,16 @@ void HyenaAIModule::onFrame()
 	Engine->Update();
 }
 
-void HyenaAIModule::onSendText(std::string text)
+void HyenaAIModule::onSendText(std::string Text)
 {
-
+#if ENABLE_DEBUG
+	size_t Pos = Text.find("debug");
+	if (Pos != std::string::npos)
+	{
+		std::string Option = Text.substr(Pos + 6);
+		Engine->ToggleDebug(Option);
+	}
+#endif
 }
 
 void HyenaAIModule::onReceiveText(BWAPI::Player player, std::string text)

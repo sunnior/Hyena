@@ -20,10 +20,11 @@ namespace Hyena
 		void AddOrder(const std::string& UnitName, int Count, int Line);
 		void CheckPrerequisite(const SBuildQueue& BuildQueue);
 
-
-		static void BindLua(lua_State* L);
+		void SetPriority(float InPriority) { Priority = InPriority; }
+		float GetPriority() const { return Priority; }
 
 	private:
 		std::vector<SBuildQueue> BuildQueues;
+		float Priority = 0;
 	};
 }

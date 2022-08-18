@@ -59,3 +59,22 @@ bool CProducerBuilding::IsMyUnit(BWAPI::Unit Unit)
 	}
 	return false;
 }
+
+#if ENABLE_DEBUG
+void CProducerBuilding::DrawDebug(const BWAPI::Position& Origin)
+{
+	std::string Info = "%c";
+	std::string BuildName = Units[0]->getType().getName();
+	BuildName = BuildName.substr(BuildName.find("_") + 1);
+	Info += BuildName;
+	Info += ":";
+	for (auto& BuildOrder : ProducingOrders)
+	{
+		std::string UnitName = BuildOrder->UnitType.getName();
+		UnitName = UnitName.substr(UnitName.find("_") + 1);
+		Info += UnitName;
+	}
+
+	BWAPI::Broodwar->drawTextScreen(Origin, Info.data(), BWAPI::Text::Enum::Green);
+}
+#endif

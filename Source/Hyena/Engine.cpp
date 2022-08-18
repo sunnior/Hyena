@@ -123,6 +123,13 @@ void CEngine::Update()
 	UnitsJustProduced.clear();
 	UnitsBeingContructed.clear();
 	//todfo UnitsBeingContructed
+
+#if ENABLE_DEBUG
+	if (bDebugProducer)
+	{
+		ProducerManager->DrawDebug(BWAPI::Position(10, 10));
+	}
+#endif
 }
 
 void CEngine::Finialize()
@@ -149,6 +156,15 @@ std::string CEngine::GetRace() const
 	}
 }
 
+#if ENABLE_DEBUG
+void CEngine::ToggleDebug(std::string Option)
+{
+	if (Option == "producer")
+	{
+		bDebugProducer = !bDebugProducer;
+	}
+}
+#endif
 
 BEGIN_REGISTERLUA(CEngine)
 	luabridge::getGlobalNamespace(L)
