@@ -3,26 +3,16 @@
 
 using namespace Hyena;
 
-bool CProducerBuilding::CanProduce(BWAPI::UnitType UnitType)
+void CProducerBuilding::OnUpdate()
 {
-	return UnitType.whatBuilds().first == Units[0]->getType();
-}
-
-void CProducerBuilding::Update()
-{
-	if (PendingOrders.size() > 0)
+	if (ReservedOrders.size() > 0)
 	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		if (UnitType.mineralPrice() <= ReservedMinerals && UnitType.gasPrice() <= ReservedGas)
+		//todo not allow queue for this moment
+		if (!Units[0]->isTraining() && Units[0]->train(ReservedOrders[0]->UnitType))
 		{
-			//todo not allow queue for this moment
-			if (!Units[0]->isTraining() && Units[0]->train(PendingOrders[0]->UnitType))
-			{
-				ConsumeResources(UnitType.mineralPrice(), UnitType.gasPrice());
-				PendingOrders[0]->bInProgress = true;
-				ProducingOrders.push_back(PendingOrders[0]);
-				PendingOrders.erase(PendingOrders.begin());
-			}
+			ReservedOrders[0]->bInProgress = true;
+			ProducingOrders.push_back(ReservedOrders[0]);
+			ReservedOrders.erase(ReservedOrders.begin());
 		}
 	}
 
@@ -53,6 +43,7 @@ void CProducerBuilding::Update()
 
 			//todo Order check
 			ProducingOrders[0]->OutUnit = MyUnits[0];
+			ConsumeOrder(ProducingOrders[0]);
 			ProducingOrders.erase(ProducingOrders.begin());
 		}
 	}
@@ -67,31 +58,4 @@ bool CProducerBuilding::IsMyUnit(BWAPI::Unit Unit)
 		return true;
 	}
 	return false;
-}
-
-float CProducerBuilding::GetPriority()
-{
-	if (!PendingOrders.size())
-	{
-		return 0;
-	}
-
-	BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-	if (UnitType.gasPrice() <= ReservedGas && UnitType.mineralPrice() <= ReservedMinerals)
-	{
-		return 0;
-	}
-	return 0.5f;
-}
-
-void CProducerBuilding::GetResourceNeeded(int& OutMinerals, int& OutGas)
-{
-	OutMinerals = 0;
-	OutGas = 0;
-	if (PendingOrders.size())
-	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		OutMinerals = UnitType.mineralPrice();
-		OutGas = UnitType.gasPrice();
-	}
 }

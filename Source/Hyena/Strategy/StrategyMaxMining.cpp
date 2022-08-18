@@ -55,13 +55,14 @@ void CStrategyMaxMining::Update()
 
 	if (!bBlockedOrder)
 	{
-		BWAPI::UnitType WorkerType = BWAPI::Broodwar->self()->getRace().getWorker();
 		int NumTrainWorkers = Engine->Bases[0]->GetDesireWorkers() - Engine->Bases[0]->SquadMining->Units.size() - Orders.size();
 		if (NumTrainWorkers > 0)
 		{
+			BWAPI::UnitType WorkerType = BWAPI::Broodwar->self()->getRace().getWorker();
+			std::pair<BWAPI::UnitType, int> BuildType = WorkerType.whatBuilds();
 			for (auto& Producer : Engine->ProducerManager->Producers)
 			{
-				if (Producer->CanProduce(WorkerType))
+				if (Producer->IsType(BuildType.first))
 				{
 					std::shared_ptr<SBuildOrder> Order = std::make_shared<SBuildOrder>();
 					Order->UnitType = WorkerType;

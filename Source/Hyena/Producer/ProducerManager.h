@@ -22,6 +22,11 @@ namespace Hyena
 		std::vector<std::shared_ptr<class CProducer>> Producers;
 
 		class CEngine* Engine;
+
+		void ConsumeReserved(const std::shared_ptr<SBuildOrder>& Order);
+
+		int TotalReservedMinerals = 0;
+		int TotalReservedGas = 0;
 	};
 }
 

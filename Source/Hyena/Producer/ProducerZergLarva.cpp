@@ -3,37 +3,31 @@
 
 using namespace Hyena;
 
-bool CProducerZergLarva::CanProduce(BWAPI::UnitType UnitType)
+bool CProducerZergLarva::IsType(BWAPI::UnitType UnitType) const
 {
-	//todo
-	return (UnitType == BWAPI::UnitTypes::Zerg_Drone) || (UnitType == BWAPI::UnitTypes::Zerg_Overlord);
+	return BWAPI::UnitTypes::Zerg_Larva == UnitType;
 }
 
-void CProducerZergLarva::Update()
+void CProducerZergLarva::OnUpdate()
 {
-	if (PendingOrders.size())
+	if (ReservedOrders.size())
 	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		if (UnitType.mineralPrice() <= ReservedMinerals && UnitType.gasPrice() <= ReservedGas)
+		//todo 使用base的
+		for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
 		{
-			//todo 使用base的
-			for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
+			if (Unit->getType() == BWAPI::UnitTypes::Zerg_Larva)
 			{
-				if (Unit->getType() == BWAPI::UnitTypes::Zerg_Larva)
+				if (Unit->morph(ReservedOrders[0]->UnitType))
 				{
-					if (Unit->morph(PendingOrders[0]->UnitType))
-					{
-						ConsumeResources(UnitType.mineralPrice(), UnitType.gasPrice());
-						PendingOrders[0]->bInProgress = true;
-						ProducingOrders.push_back(PendingOrders[0]);
-						PendingOrders.erase(PendingOrders.begin());
-						break;
-					}
+					ReservedOrders[0]->bInProgress = true;
+					ConsumeOrder(ReservedOrders[0]);
+					ProducingOrders.push_back(ReservedOrders[0]);
+					ReservedOrders.erase(ReservedOrders.begin());
+					break;
 				}
 			}
 		}
 	}
-
 
 	if (ProducingOrders.size())
 	{
@@ -64,34 +58,6 @@ void CProducerZergLarva::Update()
 				}
 			}
 		}
-	}
-}
-
-float CProducerZergLarva::GetPriority()
-{
-	if (!PendingOrders.size())
-	{
-		return 0;
-	}
-
-	BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-	if (UnitType.gasPrice() <= ReservedGas && UnitType.mineralPrice() <= ReservedMinerals)
-	{
-		return 0;
-	}
-	return 0.5f;
-
-}
-
-void CProducerZergLarva::GetResourceNeeded(int& OutMinerals, int& OutGas)
-{
-	OutMinerals = 0;
-	OutGas = 0;
-	if (PendingOrders.size())
-	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		OutMinerals = UnitType.mineralPrice();
-		OutGas = UnitType.gasPrice();
 	}
 }
 

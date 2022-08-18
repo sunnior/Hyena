@@ -6,10 +6,11 @@ namespace Hyena
 	class CProducerBuilding : public CProducer
 	{
 	public:
-		bool CanProduce(BWAPI::UnitType UnitType) override;
-		void Update() override;
-		float GetPriority() override;
-		void GetResourceNeeded(int& OutMinerals, int& OutGas) override;
+		bool IsType(BWAPI::UnitType UnitType) const override { return Units[0]->getType() == UnitType; }
+		int GetLineCount() override { return Units.size(); }
+		void OnUpdate() override;
+
+		std::vector<BWAPI::Unit> Units;
 
 	private:
 		bool IsMyUnit(BWAPI::Unit Unit);

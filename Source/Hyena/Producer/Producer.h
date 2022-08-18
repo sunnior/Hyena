@@ -10,21 +10,20 @@ namespace Hyena
 	{
 	public:
 		void Initialize(class CEngine* Engine);
-		virtual bool CanProduce(BWAPI::UnitType UnitType) { return false; }
+
+		void Update();
 		void AddOrder(const std::shared_ptr<SBuildOrder>& Order);
-		virtual void Update() {};
-		virtual float GetPriority() { return 0; }
-		virtual void GetResourceNeeded(int& OutMinerals, int& OutGas) {};
-		void ReserveResources(int Minerals, int Gas) { ReservedMinerals += Minerals; ReservedGas += Gas; }
+		void ReserveOrder(const std::shared_ptr<SBuildOrder>& Order, int Minerals, int Gas);
+		void ConsumeOrder(const std::shared_ptr<SBuildOrder>& Order);
+		std::shared_ptr<SBuildOrder> GetFirstPendingOrder() { return PendingOrders.size() ? PendingOrders[0] : std::shared_ptr<SBuildOrder>(); }
 
-		std::vector<BWAPI::Unit> Units;
+		virtual void OnUpdate() {};
+		virtual bool IsType(BWAPI::UnitType UnitType) const { return false; }
+		virtual int GetLineCount() { return 0; }
 
-		int ReservedMinerals;
-		int ReservedGas;
-	protected:
-		void ConsumeResources(int Minerals, int Gas);
-			
+	protected:			
 		std::vector<std::shared_ptr<SBuildOrder>> PendingOrders;
+		std::vector<std::shared_ptr<SBuildOrder>> ReservedOrders;
 		std::vector<std::shared_ptr<SBuildOrder>> ProducingOrders;
 		class CEngine* Engine;
 	};

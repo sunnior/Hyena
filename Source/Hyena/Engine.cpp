@@ -5,11 +5,6 @@
 #include "Squad/Squad.h"
 #include "bwem.h"
 
-#include "Producer/Producer.h"
-#include "Producer/ProducerZergLarva.h"
-#include "Producer/ProducerBuilding.h"
-#include "Producer/ProducerWorker.h"
-
 using namespace Hyena;
 
 CEngine* CEngine::_GEngine = nullptr;
@@ -18,6 +13,8 @@ TLuaRegisterFunc SLuaRegister::LuaRegisterFuncs[SLuaRegister::MaxFuncsCount];
 
 void CEngine::Initialize()
 {
+	_GEngine = this;
+
 	std::srand(unsigned int(std::time(nullptr)));
 
 	BWEM::Map::Instance().Initialize();
@@ -31,8 +28,6 @@ void CEngine::Initialize()
 	BWAPI::Broodwar->enableFlag(BWAPI::Flag::UserInput);
 	Race = BWAPI::Broodwar->self()->getRace();
 
-	_GEngine = this;
-
 	L = luaL_newstate();
 	luaL_openlibs(L);
 
@@ -41,11 +36,6 @@ void CEngine::Initialize()
 		SLuaRegister::LuaRegisterFuncs[i](L);
 	}
 
-	const int ret = luaL_dofile(L, "Init.lua");
-	assert(!ret || !printf("%s\n", lua_tostring(L, -1)));
-
-	ProducerManager = new CProducerManager;
-	ProducerManager->Initialize(this);
 
 	//todo find base
 	std::vector<BWAPI::Unit> Workers;
@@ -63,28 +53,12 @@ void CEngine::Initialize()
 	Bases.push_back(Base);
 
 	Base->AddWorkers(Workers);
-		
-	//Create Producer
-	if (BWAPI::Broodwar->self()->getRace() != BWAPI::Races::Zerg)
-	{
-		BWAPI::UnitType DepotType = BWAPI::Broodwar->self()->getRace().getResourceDepot();
 
-		std::shared_ptr<CProducer> ProducerDepot = ProducerManager->CreateProducer<CProducerBuilding>();
-		for (auto& Unit : BWAPI::Broodwar->self()->getUnits())
-		{
-			if (Unit->getType() == DepotType)
-			{
-				ProducerDepot->Units.push_back(Unit);
-			}
-		}
-	}
-	else
-	{
-		std::shared_ptr<CProducer> Producer = ProducerManager->CreateProducer<CProducerZergLarva>();
-	}
+	ProducerManager = new CProducerManager;
+	ProducerManager->Initialize(this);
 
-	std::shared_ptr<CProducerWorker> ProducerWorker = ProducerManager->CreateProducer<CProducerWorker>();
-	ProducerWorker->Base = Base;
+	const int ret = luaL_dofile(L, "Init.lua");
+	assert(!ret || !printf("%s\n", lua_tostring(L, -1)));
 }
 
 void CEngine::Update()

@@ -1,21 +1,29 @@
 #pragma once
 #include "Strategy.h"
+#include "Producer/BuildOrder.h"
 
 namespace Hyena
 {
 	class CStrategyArmy : public CStrategy
 	{
+		struct SBuildQueue
+		{
+			BWAPI::UnitType UnitType;
+			int Count = 0;;
+			int Line = 0;
+			std::shared_ptr<SBuildOrder> PreReq;
+			std::shared_ptr<SBuildOrder> Order;
+		};
 	public:
 		CStrategyArmy() {};
 
-		void SetLineCount(int InLines) { LineCount = InLines; }
-		int GetLineCount() const { return LineCount; }
+		void AddOrder(const std::string& UnitName, int Count, int Line);
+		void CheckPrerequisite(const SBuildQueue& BuildQueue);
 
-		void AddOrder(const std::string& UnitName, int Count);
 
 		static void BindLua(lua_State* L);
 
 	private:
-		int LineCount = 0;
+		std::vector<SBuildQueue> BuildQueues;
 	};
 }

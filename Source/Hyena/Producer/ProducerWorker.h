@@ -6,10 +6,9 @@ namespace Hyena
 	class CProducerWorker : public CProducer
 	{
 	public:
-		bool CanProduce(BWAPI::UnitType UnitType) override;
-		void Update() override;
-		float GetPriority() override;
-		void GetResourceNeeded(int& OutMinerals, int& OutGas) override;
+		bool IsType(BWAPI::UnitType UnitType) const override;
+		int GetLineCount() override;
+		void OnUpdate() override;
 		void SquadBeginBuild(class CSquadBuilder* Squad);
 		void SquadEndBuild(class CSquadBuilder* Squad);
 

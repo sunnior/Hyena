@@ -6,10 +6,8 @@ namespace Hyena
 	class CProducerZergLarva : public CProducer
 	{
 	public:
-		bool CanProduce(BWAPI::UnitType UnitType);
-		void Update() override;
-		float GetPriority() override;
-		void GetResourceNeeded(int& OutMinerals, int& OutGas) override;
+		bool IsType(BWAPI::UnitType UnitType) const override;
+		void OnUpdate() override;
 
 	private:
 		bool IsMyUnit(BWAPI::Unit Unit);

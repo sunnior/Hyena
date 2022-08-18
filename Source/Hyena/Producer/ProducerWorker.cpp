@@ -7,29 +7,25 @@
 
 using namespace Hyena;
 
-bool CProducerWorker::CanProduce(BWAPI::UnitType UnitType)
+bool CProducerWorker::IsType(BWAPI::UnitType UnitType) const
 {
-	return UnitType == Engine->Race.getSupplyProvider();
+	return UnitType.isWorker();
 }
 
-void CProducerWorker::Update()
+void CProducerWorker::OnUpdate()
 {
-	if (PendingOrders.size())
+	if (ReservedOrders.size())
 	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		if (UnitType.gasPrice() <= (ReservedGas - SquadUsingGas) && UnitType.mineralPrice() <= (ReservedMinerals - SquadUsingMinerals))
+		BWAPI::Unit Worker = Base->SquadMining->RemoveCloseUnit(ReservedOrders[0]->Pos.x, ReservedOrders[0]->Pos.y);
+		if (Worker)
 		{
-			BWAPI::Unit Worker = Base->SquadMining->RemoveCloseUnit(PendingOrders[0]->Pos.x, PendingOrders[0]->Pos.y);
-			if (Worker)
-			{
-				std::shared_ptr<CSquadBuilder> Squad = Engine->CreateSquad<CSquadBuilder>();
-				Squad->AddUnit(Worker);
-				Squad->AddOrder(PendingOrders[0]);
-				Squads.push_back(Squad);
+			std::shared_ptr<CSquadBuilder> Squad = Engine->CreateSquad<CSquadBuilder>();
+			Squad->AddUnit(Worker);
+			Squad->AddOrder(ReservedOrders[0]);
+			Squads.push_back(Squad);
 
-				ProducingOrders.push_back(PendingOrders[0]);
-				PendingOrders.erase(PendingOrders.begin());
-			}
+			ProducingOrders.push_back(ReservedOrders[0]);
+			ReservedOrders.erase(ReservedOrders.begin());
 		}
 	}
 
@@ -37,9 +33,9 @@ void CProducerWorker::Update()
 	{
 		if (Squad->Order->OutUnit)
 		{
-			if (!Squad->bConsumedResource)
+			if (Squad->Order->ReservedGas || Squad->Order->ReservedMinerals)
 			{
-				ConsumeResources(Squad->Order->UnitType.mineralPrice(), Squad->Order->UnitType.gasPrice());
+				ConsumeOrder(Squad->Order);
 			}
 		}
 	}
@@ -57,34 +53,8 @@ void CProducerWorker::Update()
 	}
 }
 
-float CProducerWorker::GetPriority()
+int CProducerWorker::GetLineCount()
 {
-	if (!PendingOrders.size())
-	{
-		return 0;
-	}
-
-	if (!Base->SquadMining->Units.size())
-	{
-		return 0;
-	}
-
-	BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-	if (UnitType.gasPrice() <= (ReservedGas - SquadUsingGas) && UnitType.mineralPrice() <= (ReservedMinerals - SquadUsingMinerals))
-	{
-		return 0;
-	}
-	return 0.8f;
-}
-
-void CProducerWorker::GetResourceNeeded(int& OutMinerals, int& OutGas)
-{
-	OutMinerals = 0;
-	OutGas = 0;
-	if (PendingOrders.size())
-	{
-		BWAPI::UnitType UnitType = PendingOrders[0]->UnitType;
-		OutMinerals = UnitType.mineralPrice();
-		OutGas = UnitType.gasPrice();
-	}
+	//todo 
+	return 4;
 }

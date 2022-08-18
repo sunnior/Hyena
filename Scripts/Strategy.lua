@@ -9,7 +9,6 @@ end
 function CStrategy:Update()
 end
 
-
 CStrategyComposite = class(CStrategy)
 
 function CStrategyComposite:Initialize(Engine)
@@ -39,7 +38,7 @@ function CStrategyDefaultOpening:Initialize(Engine)
 	self.StrategyMaxMining = self:CreateSubStrategy(CStrategyMaxMining())
 	self.StrategySupply = self:CreateSubStrategy(CStrategySupply())
 	self.StrategyScout = nil
-	self.StrategyArmy = self:CreateSubStrategy(CStrategyArmy())
+	--self.StrategyArmy = self:CreateSubStrategy(CStrategyArmy())
 end
 
 function CStrategyDefaultOpening:Update()
@@ -107,13 +106,11 @@ function CStrategyArmy:Initialize(Engine)
 	self.Cpp = CppStrategyArmy()
 	self.Cpp:Initialize(Engine.Cpp)
 
-	self.Cpp.LineCount = 2
-
 	local Race = Engine.Cpp.Race
 	if Race == "Protoss" then
-		self.Cpp:AddOrder("Zealot", 8)
+		self.Cpp:AddOrder("Zealot", 8, 2)
 	elseif Race == "Terran" then
-
+		self.Cpp:AddOrder("Marine", 8, 2)
 	elseif Race == "Zerg" then
 
 	end

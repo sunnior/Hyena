@@ -23,10 +23,11 @@ void CStrategySupply::Update()
 		if (UnusedSupply <= 4)
 		{
 			BWAPI::UnitType SupplyType = Engine->Race.getSupplyProvider();
+			std::pair<BWAPI::UnitType, int> BuildType = SupplyType.whatBuilds();
 
 			for (auto& Producer : Engine->ProducerManager->Producers)
 			{
-				if (Producer->CanProduce(SupplyType))
+				if (Producer->IsType(BuildType.first))
 				{
 					Order = std::make_shared<SBuildOrder>();
 					Order->UnitType = SupplyType;
