@@ -44,8 +44,11 @@ void CProducerWorker::OnUpdate()
 	{
 		if ((*It)->bComplete)
 		{
-			Base->SquadMining->AddUnit((*It)->Unit);
-			Engine->DeleteSquad(*It);
+			std::shared_ptr<CSquadBuilder> Squad = *It;
+			auto ItOrder = std::find(ProducingOrders.begin(), ProducingOrders.end(), Squad->Order);
+			ProducingOrders.erase(ItOrder);
+			Base->SquadMining->AddUnit(Squad->Unit);
+			Engine->DeleteSquad(Squad);
 			Squads.erase(It);
 			break;
 		}

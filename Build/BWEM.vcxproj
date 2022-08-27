@@ -32,6 +32,7 @@
     <ClCompile Include="..\ThirdParty\BWEM\src\map.cpp" />
     <ClCompile Include="..\ThirdParty\BWEM\src\mapDrawer.cpp" />
     <ClCompile Include="..\ThirdParty\BWEM\src\mapImpl.cpp" />
+    <ClCompile Include="..\ThirdParty\BWEM\src\mapPrinter.cpp" />
     <ClCompile Include="..\ThirdParty\BWEM\src\neutral.cpp" />
     <ClCompile Include="..\ThirdParty\BWEM\src\tiles.cpp" />
     <ClCompile Include="..\ThirdParty\BWEM\src\utils.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="..\ThirdParty\BWEM\src\map.h" />
     <ClInclude Include="..\ThirdParty\BWEM\src\mapDrawer.h" />
     <ClInclude Include="..\ThirdParty\BWEM\src\mapImpl.h" />
+    <ClInclude Include="..\ThirdParty\BWEM\src\mapPrinter.h" />
     <ClInclude Include="..\ThirdParty\BWEM\src\neutral.h" />
     <ClInclude Include="..\ThirdParty\BWEM\src\tiles.h" />
     <ClInclude Include="..\ThirdParty\BWEM\src\utils.h" />

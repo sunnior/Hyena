@@ -20,11 +20,7 @@ void CEngine::Initialize()
 	BWEM::Map::Instance().Initialize();
 	BWEM::Map::Instance().EnableAutomaticPathAnalysis();
 
-	//BWEM::utils::MapPrinter::Initialize(&BWEM::Map::Instance());
-	//BWEM::utils::printMap(BWEM::Map::Instance());      // will print the map into the file <StarCraftFolder>bwapi-data/map.bmp
-	//BWEM::utils::pathExample(BWEM::Map::Instance());   // add to the printed map a path between two starting locations
-
-	BWAPI::Broodwar->setLocalSpeed(5);
+	BWAPI::Broodwar->setLocalSpeed(15);
 	BWAPI::Broodwar->enableFlag(BWAPI::Flag::UserInput);
 	Race = BWAPI::Broodwar->self()->getRace();
 
@@ -129,6 +125,10 @@ void CEngine::Update()
 	{
 		ProducerManager->DrawDebug(BWAPI::Position(10, 10));
 	}
+	if (bDebugMap)
+	{
+		DebugMap();
+	}
 #endif
 }
 
@@ -163,7 +163,25 @@ void CEngine::ToggleDebug(std::string Option)
 	{
 		bDebugProducer = !bDebugProducer;
 	}
+	else if (Option == "bwem")
+	{
+		BWEM::utils::MapPrinter::Initialize(&BWEM::Map::Instance());
+		BWEM::utils::printMap(BWEM::Map::Instance());      // will print the map into the file <StarCraftFolder>bwapi-data/map.bmp
+		BWEM::utils::pathExample(BWEM::Map::Instance());   // add to the printed map a path between two starting locations
+	}
+	else if (Option == "map")
+		bDebugMap = !bDebugMap;
+	}
+
+void CEngine::DebugMap()
+{
+
 }
+
+void CEngine::onUnitDiscover(BWAPI::Unit unit)
+{
+}
+
 #endif
 
 BEGIN_REGISTERLUA(CEngine)

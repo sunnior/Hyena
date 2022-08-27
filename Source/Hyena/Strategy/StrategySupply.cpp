@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "Producer/Producer.h"
 #include "Producer/ProducerManager.h"
+#include "Base.h"
 
 using namespace Hyena;
 
@@ -32,7 +33,9 @@ void CStrategySupply::Update()
 					Order = std::make_shared<SBuildOrder>();
 					Order->Priority = 0.8f;
 					Order->UnitType = SupplyType;
-					Order->Pos = GetBestPosition(SupplyType);
+
+					//Order->Pos = *Tiles.begin();
+
 					Producer->AddOrder(Order);
 					break;
 				}
@@ -41,6 +44,7 @@ void CStrategySupply::Update()
 	}
 }
 
+/*
 BWAPI::TilePosition CStrategySupply::GetBestPosition(BWAPI::UnitType UnitType)
 {
 	//todo 有的时候找到位置有人过，会导致建筑失败
@@ -53,7 +57,7 @@ BWAPI::TilePosition CStrategySupply::GetBestPosition(BWAPI::UnitType UnitType)
 	bool buildingOnCreep = UnitType.requiresCreep();
 	BWAPI::TilePosition buildPos = BWAPI::Broodwar->getBuildLocation(UnitType, desiredPos, maxBuildRange, buildingOnCreep);
 	return buildPos;
-}
+}*/
 
 BEGIN_REGISTERLUA(CStrategySupply)
 	luabridge::getGlobalNamespace(L)

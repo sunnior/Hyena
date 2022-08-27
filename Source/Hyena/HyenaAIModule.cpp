@@ -46,7 +46,7 @@ void HyenaAIModule::onNukeDetect(BWAPI::Position target)
 
 void HyenaAIModule::onUnitDiscover(BWAPI::Unit unit)
 {
-
+	Engine->onUnitDiscover(unit);
 }
 
 void HyenaAIModule::onUnitEvade(BWAPI::Unit unit)

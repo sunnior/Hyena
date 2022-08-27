@@ -38,7 +38,7 @@ function CStrategyDefaultOpening:Initialize(Engine)
 	self.StrategyMaxMining = self:CreateSubStrategy(CStrategyMaxMining())
 	self.StrategySupply = self:CreateSubStrategy(CStrategySupply())
 	self.StrategyScout = nil
-	self.StrategyArmy = self:CreateSubStrategy(CStrategyArmy())
+	self.StrategyArmy = nil
 end
 
 function CStrategyDefaultOpening:Update()
@@ -47,8 +47,12 @@ function CStrategyDefaultOpening:Update()
 	if not self.StrategyScout then
 		if self.StrategyMaxMining:GetMiningWorkersCount() > 8 then
 			self.StrategyScout = self:CreateSubStrategy(CStrategyScout())
-			self.StrategyArmy.Priority = 0.8
 		end
+	end
+
+	if not self.StrategyArmy and self.StrategyMaxMining:GetMiningWorkersCount() > 8 then
+		self.StrategyArmy = self:CreateSubStrategy(CStrategyArmy())
+		self.StrategyArmy.Priority = 0.8
 	end
 end
 

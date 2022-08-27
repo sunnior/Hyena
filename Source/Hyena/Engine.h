@@ -15,6 +15,8 @@ namespace Hyena
 
 		void Update();
 
+		void onUnitDiscover(BWAPI::Unit unit);
+
 		std::string GetRace() const;
 
 		template<class T>
@@ -43,6 +45,7 @@ namespace Hyena
 		std::vector<BWAPI::Unit> UnitsBeingContructed;
 
 		BWAPI::Race Race;
+
 	private:
 		static CEngine* _GEngine;
 
@@ -50,7 +53,10 @@ namespace Hyena
 #if ENABLE_DEBUG
 		void ToggleDebug(std::string Option);
 
+		void DebugMap();
+
 		bool bDebugProducer = false;
+		bool bDebugMap = false;
 #endif
 	};
 }

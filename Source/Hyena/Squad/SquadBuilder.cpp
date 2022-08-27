@@ -19,15 +19,25 @@ void CSquadBuilder::AddUnit(BWAPI::Unit InUnit)
 
 void CSquadBuilder::OnUpdate()
 {
-	//todo 精确判断
-	if (!Order->bInProgress)
+		//todo 精确判断
+	if (!bMoveTo)
 	{
-		if (Unit->build(Order->UnitType, Order->Pos))
+		if (Unit->move(BWAPI::Position(Order->Pos)))
 		{
-			Order->bInProgress = true;
+			bMoveTo = true;
 		}
 	}
-	else
+	else if (bMoveTo && !bBuilding)
+	{
+		if (Unit->isIdle())
+		{
+			if (Unit->build(Order->UnitType, Order->Pos))
+			{
+				bBuilding = true;
+			}
+		}
+	}
+	else if (bBuilding)
 	{
 		if (!Order->OutUnit)
 		{

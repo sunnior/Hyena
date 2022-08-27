@@ -1,6 +1,7 @@
 #include "StrategyArmy.h"
 #include "Engine.h"
 #include "Producer/ProducerManager.h"
+#include "Base.h"
 
 using namespace Hyena;
 
@@ -43,20 +44,6 @@ void CStrategyArmy::AddOrder(const std::string& UnitName, int Count, int Line)
 	}
 }
 
-BWAPI::TilePosition TmpGetBestPosition(BWAPI::UnitType UnitType)
-{
-	//todo 有的时候找到位置有人过，会导致建筑失败
-
-	// Get a location that we want to build the building next to
-	BWAPI::TilePosition desiredPos = BWAPI::Broodwar->self()->getStartLocation();
-
-	// Ask BWAPI for a building location near the desired position for the type
-	int maxBuildRange = 64;
-	bool buildingOnCreep = UnitType.requiresCreep();
-	BWAPI::TilePosition buildPos = BWAPI::Broodwar->getBuildLocation(UnitType, desiredPos, maxBuildRange, buildingOnCreep);
-	return buildPos;
-}
-
 void CStrategyArmy::CheckPrerequisite(const SBuildQueue& BuildQueue)
 {
 	std::pair<BWAPI::UnitType, int> BuildType = BuildQueue.UnitType.whatBuilds();
@@ -94,15 +81,16 @@ void CStrategyArmy::CheckPrerequisite(const SBuildQueue& BuildQueue)
 	//todo 农民同时收到一个建筑物的多个单子，需要在这个地方检查一下，如果已经在build，那么获得buildorder
 	if (PreReqType)
 	{
-		std::shared_ptr<SBuildOrder> Order = std::make_shared<SBuildOrder>();
-		Order->UnitType = PreReqType;
-		Order->Pos = TmpGetBestPosition(PreReqType);
 		BWAPI::UnitType ProducerType = PreReqType.whatBuilds().first;
 
 		for (auto& Producer : Engine->ProducerManager->Producers)
 		{
 			if (Producer->IsType(ProducerType))
 			{
+				std::shared_ptr<SBuildOrder> Order = std::make_shared<SBuildOrder>();
+				Order->UnitType = PreReqType;
+				//Order->Pos = *Tiles.begin();
+
 				Producer->AddOrder(Order);
 				break;
 			}
